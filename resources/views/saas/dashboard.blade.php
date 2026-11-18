@@ -1,95 +1,97 @@
 <x-app-layout>
     <x-slot name="header">
-        <x-page-header title="Centro de comando SaaS" subtitle="Administración global de tenants y usuarios" />
+        <x-page-header title="Centro de comando SaaS" subtitle="Administración global de empresas, usuarios y seguridad" icon="crown">
+            <x-slot name="actions">
+                <x-btn :href="route('saas.users.create')" variant="secondary" icon="plus">Usuario</x-btn>
+                <x-btn :href="route('saas.tenants.create')" icon="plus">Empresa</x-btn>
+            </x-slot>
+        </x-page-header>
     </x-slot>
 
-    <div class="py-8">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-8">
+    <div class="mx-auto max-w-7xl space-y-6 px-4 pb-12 pt-6 sm:px-6 lg:px-8">
 
-            {{-- Métricas --}}
-            <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-                <div class="relative overflow-hidden rounded-2xl bg-slate-900 p-6 text-white shadow-sm">
-                    <div class="pointer-events-none absolute inset-0 opacity-90" style="background:radial-gradient(700px 300px at 10% -20%,rgba(56,189,248,.18),transparent 60%),linear-gradient(160deg,#0b1220,#0f172a);"></div>
-                    <div class="relative z-10 flex items-center justify-between">
-                        <div>
-                            <h3 class="mb-1 text-sm font-semibold uppercase tracking-wider text-cyan-300/80">Total empresas (tenants)</h3>
-                            <div class="text-4xl font-bold">{{ $tenants->count() }}</div>
-                        </div>
-                        <svg class="h-14 w-14 text-white/20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+        {{-- Métricas --}}
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <div class="relative overflow-hidden rounded-2xl bg-slate-900 p-6 text-white shadow-sm">
+                <div class="pointer-events-none absolute inset-0" style="background:radial-gradient(500px 240px at 0% -20%,rgba(56,189,248,.22),transparent 60%),linear-gradient(160deg,#0b1220,#0f172a);"></div>
+                <div class="relative z-10 flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-semibold uppercase tracking-widest text-cyan-300/90">Empresas</p>
+                        <p class="mt-1 text-4xl font-bold">{{ $tenants->count() }}</p>
                     </div>
-                </div>
-
-                <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <h3 class="mb-1 text-sm font-semibold uppercase tracking-wider text-slate-500">Total usuarios globales</h3>
-                            <div class="text-4xl font-bold text-slate-900">{{ $users->count() }}</div>
-                        </div>
-                        <svg class="h-14 w-14 text-slate-200" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                    </div>
+                    <x-icon name="building" class="h-12 w-12 text-white/15" stroke="1.4" />
                 </div>
             </div>
-
-            <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
-                {{-- Empresas --}}
-                <x-card padding="p-0">
-                    <div class="flex items-center justify-between border-b border-slate-100 px-5 py-4">
-                        <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-700">Directorio de empresas</h3>
-                        <x-btn :href="route('saas.tenants.create')" variant="accent" class="!px-3 !py-1.5 text-xs">+ Nueva empresa</x-btn>
+            <div class="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-semibold uppercase tracking-widest text-slate-400">Usuarios globales</p>
+                        <p class="mt-1 text-4xl font-bold text-slate-900">{{ $users->count() }}</p>
                     </div>
-                    <div class="max-h-96 overflow-y-auto p-4">
-                        <ul class="space-y-2">
-                            @forelse($tenants as $tenant)
-                            <li class="flex items-center justify-between rounded-lg border border-slate-100 p-3 transition hover:bg-slate-50">
-                                <div>
-                                    <div class="font-semibold text-slate-900">{{ $tenant->name }}</div>
-                                    <div class="mt-0.5 font-mono text-[10px] text-slate-400">ID base: {{ $tenant->id }}</div>
-                                </div>
-                            </li>
-                            @empty
-                            <div class="py-4 text-center text-sm font-medium text-slate-400">No hay empresas registradas.</div>
-                            @endforelse
-                        </ul>
-                    </div>
-                </x-card>
-
-                {{-- Usuarios --}}
-                <x-card padding="p-0">
-                    <div class="flex items-center justify-between border-b border-slate-100 px-5 py-4">
-                        <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-700">Base de usuarios</h3>
-                        <x-btn :href="route('saas.users.create')" class="!px-3 !py-1.5 text-xs">+ Nuevo usuario</x-btn>
-                    </div>
-                    <div class="max-h-96 overflow-y-auto p-4">
-                        <ul class="divide-y divide-slate-100">
-                            @forelse($users as $user)
-                            <li class="flex items-center justify-between py-3">
-                                <div>
-                                    <div class="flex items-center gap-2 text-sm font-semibold text-slate-800">
-                                        {{ $user->name }}
-                                        @if($user->is_superadmin) <span class="rounded border border-amber-200 bg-amber-100 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-amber-800">Root</span> @endif
-                                    </div>
-                                    <div class="text-xs text-slate-500">{{ $user->email }}</div>
-                                </div>
-                                <span class="text-[10px] font-bold text-slate-400">Activo</span>
-                            </li>
-                            @empty
-                            <div class="py-4 text-center text-sm font-medium text-slate-400">No hay usuarios registrados.</div>
-                            @endforelse
-                        </ul>
-                    </div>
-                </x-card>
-
-                {{-- Roles --}}
-                <x-card class="lg:col-span-2">
-                    <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                        <div>
-                            <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-700">Ingeniería de seguridad</h3>
-                            <p class="text-xs text-slate-500">Configura la matriz de control de acceso basada en roles (RBAC).</p>
-                        </div>
-                        <x-btn :href="route('saas.roles.index')">Gestor de roles y permisos</x-btn>
-                    </div>
-                </x-card>
+                    <x-icon name="users" class="h-12 w-12 text-slate-200" stroke="1.4" />
+                </div>
             </div>
+            <a href="{{ route('saas.roles.index') }}" class="group rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-md">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-semibold uppercase tracking-widest text-slate-400">Seguridad RBAC</p>
+                        <p class="mt-1 text-lg font-bold text-slate-900">Roles y permisos</p>
+                        <p class="mt-0.5 inline-flex items-center gap-1 text-xs font-semibold text-cyan-700">Abrir gestor <x-icon name="chevron" class="h-3.5 w-3.5 transition group-hover:translate-x-0.5" stroke="2" /></p>
+                    </div>
+                    <x-icon name="key" class="h-12 w-12 text-slate-200" stroke="1.4" />
+                </div>
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+            {{-- Empresas --}}
+            <x-card title="Directorio de empresas" subtitle="Tenants activos en la plataforma" padding="p-0">
+                <x-slot name="actions">
+                    <x-btn :href="route('saas.tenants.create')" variant="accent" size="sm" icon="plus">Nueva</x-btn>
+                </x-slot>
+                <ul class="max-h-[26rem] divide-y divide-slate-100 overflow-y-auto">
+                    @forelse ($tenants as $tenant)
+                        <li class="flex items-center gap-3 px-6 py-3">
+                            <span class="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-100 text-slate-500"><x-icon name="building" class="h-4 w-4" /></span>
+                            <div class="min-w-0 flex-1">
+                                <p class="truncate text-sm font-semibold text-slate-900">{{ $tenant->name }}</p>
+                                <p class="font-mono text-[11px] text-slate-400">ID {{ $tenant->id }}</p>
+                            </div>
+                            @if ($tenant->license_type)
+                                <span class="rounded-full bg-slate-100 px-2.5 py-0.5 text-[11px] font-semibold text-slate-600">{{ $tenant->license_type }}</span>
+                            @endif
+                        </li>
+                    @empty
+                        <li><x-empty-state icon="building" title="Sin empresas" description="Registra la primera empresa cliente." /></li>
+                    @endforelse
+                </ul>
+            </x-card>
+
+            {{-- Usuarios --}}
+            <x-card title="Base de usuarios" subtitle="Cuentas con acceso a la plataforma" padding="p-0">
+                <x-slot name="actions">
+                    <x-btn :href="route('saas.users.create')" size="sm" icon="plus">Nuevo</x-btn>
+                </x-slot>
+                <ul class="max-h-[26rem] divide-y divide-slate-100 overflow-y-auto">
+                    @forelse ($users as $user)
+                        <li class="flex items-center gap-3 px-6 py-3">
+                            <span class="flex h-9 w-9 items-center justify-center rounded-full bg-slate-900 text-xs font-bold text-white">{{ mb_strtoupper(mb_substr($user->name, 0, 1)) }}</span>
+                            <div class="min-w-0 flex-1">
+                                <p class="flex items-center gap-2 truncate text-sm font-semibold text-slate-900">
+                                    {{ $user->name }}
+                                    @if ($user->is_superadmin)
+                                        <span class="rounded bg-amber-100 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-amber-800">Root</span>
+                                    @endif
+                                </p>
+                                <p class="truncate text-xs text-slate-500">{{ $user->email }}</p>
+                            </div>
+                            <span class="flex items-center gap-1 text-[11px] font-medium text-emerald-600"><span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>Activo</span>
+                        </li>
+                    @empty
+                        <li><x-empty-state icon="users" title="Sin usuarios" description="Da de alta el primer usuario." /></li>
+                    @endforelse
+                </ul>
+            </x-card>
         </div>
     </div>
 </x-app-layout>

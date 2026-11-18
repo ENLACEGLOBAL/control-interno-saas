@@ -1,31 +1,40 @@
 <x-app-layout>
     <x-slot name="header">
-        <x-page-header title="Registrar nuevo proceso" subtitle="Vincula un proceso a su área dueña" />
+        <x-page-header title="Nuevo proceso" subtitle="Vincula un proceso operativo a su área dueña" icon="flow" />
     </x-slot>
 
-    <div class="py-8">
-        <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-            <x-card>
-                <form method="POST" action="{{ route('processes.store') }}" class="space-y-5">
+    <div class="mx-auto max-w-3xl px-4 pb-12 pt-6 sm:px-6 lg:px-8">
+        <x-card>
+            @if ($areas->isEmpty())
+                <x-empty-state icon="building" title="Primero necesitas un área"
+                               description="Cada proceso pertenece a un área. Registra al menos una para continuar.">
+                    <x-btn :href="route('areas.create')" icon="plus">Crear área</x-btn>
+                </x-empty-state>
+            @else
+                <form method="POST" action="{{ route('processes.store') }}" class="space-y-6">
                     @csrf
+                    <x-form-errors />
+
                     <div>
-                        <x-input-label value="Seleccionar área dueña" />
-                        <select name="area_id" required class="block w-full rounded-lg border-slate-300 text-sm shadow-sm transition focus:border-slate-900 focus:ring-2 focus:ring-slate-900/10">
-                            @foreach($areas as $area)
-                                <option value="{{ $area->id }}">{{ $area->name }}</option>
+                        <x-input-label for="area_id" value="Área dueña" />
+                        <x-select id="area_id" name="area_id" required>
+                            @foreach ($areas as $area)
+                                <option value="{{ $area->id }}" @selected(old('area_id') == $area->id)>{{ $area->name }}</option>
                             @endforeach
-                        </select>
+                        </x-select>
+                        <x-input-error :messages="$errors->get('area_id')" />
                     </div>
                     <div>
-                        <x-input-label value="Nombre del proceso subordinado" />
-                        <x-text-input type="text" name="name" required placeholder="Ej: Cierre de negociaciones comerciales" class="w-full" />
+                        <x-input-label for="name" value="Nombre del proceso" />
+                        <x-text-input id="name" type="text" name="name" :value="old('name')" required placeholder="Ej: Cierre de negociaciones comerciales" />
+                        <x-input-error :messages="$errors->get('name')" />
                     </div>
-                    <div class="flex justify-end gap-3 border-t border-slate-100 pt-4">
-                        <x-btn :href="route('processes.index')" variant="secondary">Cancelar</x-btn>
-                        <x-btn>Guardar proceso</x-btn>
-                    </div>
+
+                    <x-form-actions :cancel="route('processes.index')">
+                        <x-btn icon="check">Guardar proceso</x-btn>
+                    </x-form-actions>
                 </form>
-            </x-card>
-        </div>
+            @endif
+        </x-card>
     </div>
 </x-app-layout>

@@ -1,23 +1,25 @@
 <x-app-layout>
     <x-slot name="header">
-        <x-page-header title="Crear dirección / área" subtitle="Registra una nueva unidad organizacional" />
+        <x-page-header title="Nueva dirección / área" subtitle="Registra una unidad organizacional de la empresa" icon="building" />
     </x-slot>
 
-    <div class="py-8">
-        <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-            <x-card>
-                <form method="POST" action="{{ route('areas.store') }}" class="space-y-5">
-                    @csrf
-                    <div>
-                        <x-input-label value="Nombre de la dirección / área" />
-                        <x-text-input type="text" name="name" required placeholder="Ej: Dirección Financiera y Contable" class="w-full" />
-                    </div>
-                    <div class="flex justify-end gap-3 border-t border-slate-100 pt-4">
-                        <x-btn :href="route('areas.index')" variant="secondary">Cancelar</x-btn>
-                        <x-btn>Guardar área</x-btn>
-                    </div>
-                </form>
-            </x-card>
-        </div>
+    <div class="mx-auto max-w-3xl px-4 pb-12 pt-6 sm:px-6 lg:px-8">
+        <x-card>
+            <form method="POST" action="{{ route('areas.store') }}" class="space-y-6">
+                @csrf
+                <x-form-errors />
+
+                <div>
+                    <x-input-label for="name" value="Nombre de la dirección / área" />
+                    <x-text-input id="name" type="text" name="name" :value="old('name')" required autofocus placeholder="Ej: Dirección Financiera y Contable" />
+                    <p class="mt-1.5 text-xs text-slate-400">Usa el nombre oficial tal como aparece en el organigrama.</p>
+                    <x-input-error :messages="$errors->get('name')" />
+                </div>
+
+                <x-form-actions :cancel="route('areas.index')">
+                    <x-btn icon="check">Guardar área</x-btn>
+                </x-form-actions>
+            </form>
+        </x-card>
     </div>
 </x-app-layout>

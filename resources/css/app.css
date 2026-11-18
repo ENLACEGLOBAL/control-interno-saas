@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    [x-cloak] { display: none !important; }
+
+    html { scroll-behavior: smooth; }
+
+    ::selection { background-color: rgb(34 211 238 / 0.25); }
+}
+
+@layer components {
+    /* Tablas de datos homogéneas en todos los módulos */
+    .table-modern { @apply min-w-full divide-y divide-slate-200 text-sm; }
+    .table-modern thead { @apply bg-slate-50/80; }
+    .table-modern th { @apply whitespace-nowrap px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wider text-slate-500; }
+    .table-modern tbody { @apply divide-y divide-slate-100 bg-white; }
+    .table-modern tbody tr { @apply transition-colors hover:bg-slate-50/70; }
+    .table-modern td { @apply px-5 py-3.5 align-middle text-slate-700; }
+
+    /* Campos de texto largos con el mismo acabado que el login */
+    .textarea-modern { @apply block w-full rounded-lg border-slate-300 text-sm text-slate-900 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:ring-2 focus:ring-slate-900/10; }
+}

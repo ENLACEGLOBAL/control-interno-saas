@@ -1,18 +1,22 @@
 <x-app-layout>
     <x-slot name="header">
-        <x-page-header title="Auditoría avanzada" subtitle="Sistema de Control Interno — SCI" />
+        <x-page-header title="Auditoría avanzada" subtitle="Modelo de control interno, matriz de riesgos y manual metodológico" icon="clipboard" />
     </x-slot>
+
+    @push('head')
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+    @endpush
     <style>
         /* ── ESTILOS EXCLUSIVOS SECCIÓN MANUAL ── */
         .man-hero {
-            background: linear-gradient(135deg, #8B0A2A 0%, #6B0820 100%);
+            background: linear-gradient(135deg, #0f172a 0%, #0b1220 100%);
             border-radius: var(--radius);
             padding: 22px 26px;
             margin-bottom: 18px;
             color: #fff;
             position: relative;
             overflow: hidden;
-            border-bottom: 3px solid #C41230;
+            border-bottom: 3px solid #06b6d4;
         }
 
         .man-hero::before {
@@ -71,7 +75,7 @@
 
         .man-ch-btn {
             background: #fff;
-            border: 1.5px solid #f5c6c6;
+            border: 1.5px solid #e2e8f0;
             border-radius: var(--radius);
             padding: 14px 16px;
             cursor: pointer;
@@ -80,20 +84,20 @@
             display: flex;
             align-items: flex-start;
             gap: 10px;
-            border-left: 4px solid #8B0A2A;
+            border-left: 4px solid #0f172a;
         }
 
         .man-ch-btn:hover {
             background: #FCEAEA;
-            border-color: #8B0A2A;
+            border-color: #0f172a;
             transform: translateY(-2px);
-            box-shadow: 0 4px 16px rgba(139, 10, 42, .12);
+            box-shadow: 0 4px 16px rgba(15, 23, 42, .12);
         }
 
         .man-ch-btn.active {
             background: #FCEAEA;
-            border-color: #8B0A2A;
-            box-shadow: 0 2px 10px rgba(139, 10, 42, .15);
+            border-color: #0f172a;
+            box-shadow: 0 2px 10px rgba(15, 23, 42, .15);
         }
 
         .man-ch-icon {
@@ -105,7 +109,7 @@
         .man-ch-num {
             font-size: 9px;
             font-weight: 800;
-            color: #C41230;
+            color: #06b6d4;
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 2px;
@@ -146,7 +150,7 @@
 
         .man-sep-bar {
             width: 4px;
-            background: #8B0A2A;
+            background: #0f172a;
             align-self: stretch;
             min-height: 32px;
             flex-shrink: 0;
@@ -156,14 +160,14 @@
             flex: 1;
             padding: 8px 14px;
             background: #FCEAEA;
-            border: 1.5px solid #f5c6c6;
+            border: 1.5px solid #e2e8f0;
             border-left: none;
             border-radius: 0 8px 8px 0;
             font-size: 10px;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: #8B0A2A;
+            color: #0f172a;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -179,16 +183,16 @@
 
         .glos-card {
             background: #fff;
-            border: 1px solid #f5c6c6;
+            border: 1px solid #e2e8f0;
             border-radius: 8px;
             padding: 11px 13px;
-            border-left: 3px solid #8B0A2A;
+            border-left: 3px solid #0f172a;
         }
 
         .glos-term {
             font-size: 11px;
             font-weight: 800;
-            color: #8B0A2A;
+            color: #0f172a;
             margin-bottom: 3px;
         }
 
@@ -209,7 +213,7 @@
 
         .princ-card {
             background: #fff;
-            border: 1.5px solid #f5c6c6;
+            border: 1.5px solid #e2e8f0;
             border-radius: 10px;
             padding: 14px 15px;
             text-align: center;
@@ -219,7 +223,7 @@
             width: 32px;
             height: 32px;
             border-radius: 50%;
-            background: #8B0A2A;
+            background: #0f172a;
             color: #fff;
             font-size: 14px;
             font-weight: 800;
@@ -232,7 +236,7 @@
         .princ-title {
             font-size: 12px;
             font-weight: 800;
-            color: #8B0A2A;
+            color: #0f172a;
             margin-bottom: 5px;
         }
 
@@ -246,7 +250,7 @@
         /* Componentes COSO */
         .coso-accordion {
             margin-bottom: 8px;
-            border: 1.5px solid #f5c6c6;
+            border: 1.5px solid #e2e8f0;
             border-radius: 10px;
             overflow: hidden;
         }
@@ -267,14 +271,14 @@
 
         .coso-hdr.open {
             background: #FCEAEA;
-            border-bottom: 1px solid #f5c6c6;
+            border-bottom: 1px solid #e2e8f0;
         }
 
         .coso-num {
             width: 26px;
             height: 26px;
             border-radius: 50%;
-            background: #8B0A2A;
+            background: #0f172a;
             color: #fff;
             font-size: 11px;
             font-weight: 800;
@@ -295,15 +299,15 @@
             font-size: 9px;
             padding: 2px 8px;
             background: #FCEAEA;
-            color: #8B0A2A;
+            color: #0f172a;
             border-radius: 10px;
             font-weight: 800;
-            border: 1px solid #f5c6c6;
+            border: 1px solid #e2e8f0;
         }
 
         .coso-arr {
             font-size: 14px;
-            color: #8B0A2A;
+            color: #0f172a;
             transition: transform .2s;
         }
 
@@ -328,7 +332,7 @@
         .coso-sub {
             font-size: 11px;
             font-weight: 800;
-            color: #8B0A2A;
+            color: #0f172a;
             margin: 10px 0 5px;
             display: flex;
             align-items: center;
@@ -339,8 +343,8 @@
         .valor-chip {
             display: inline-block;
             background: #FCEAEA;
-            color: #8B0A2A;
-            border: 1px solid #f5c6c6;
+            color: #0f172a;
+            border: 1px solid #e2e8f0;
             padding: 5px 14px;
             border-radius: 20px;
             font-size: 11px;
@@ -350,7 +354,7 @@
 
         /* Objetivo card */
         .obj-main {
-            background: linear-gradient(135deg, #8B0A2A 0%, #6B0820 100%);
+            background: linear-gradient(135deg, #0f172a 0%, #0b1220 100%);
             border-radius: 10px;
             padding: 16px 18px;
             margin-bottom: 12px;
@@ -379,17 +383,17 @@
             gap: 9px;
             padding: 9px 12px;
             background: #fff;
-            border: 1px solid #f5c6c6;
+            border: 1px solid #e2e8f0;
             border-radius: 8px;
             margin-bottom: 7px;
-            border-left: 3px solid #8B0A2A;
+            border-left: 3px solid #0f172a;
         }
 
         .obj-esp-num {
             width: 20px;
             height: 20px;
             border-radius: 50%;
-            background: #8B0A2A;
+            background: #0f172a;
             color: #fff;
             font-size: 10px;
             font-weight: 800;
@@ -410,17 +414,17 @@
         /* Roles */
         .rol-card {
             background: #fff;
-            border: 1px solid #f5c6c6;
+            border: 1px solid #e2e8f0;
             border-radius: 8px;
             padding: 13px 15px;
             margin-bottom: 8px;
-            border-left: 4px solid #8B0A2A;
+            border-left: 4px solid #0f172a;
         }
 
         .rol-title {
             font-size: 12px;
             font-weight: 800;
-            color: #8B0A2A;
+            color: #0f172a;
             margin-bottom: 5px;
             display: flex;
             align-items: center;
@@ -443,7 +447,7 @@
 
         .herr-card {
             background: #fff;
-            border: 1.5px solid #f5c6c6;
+            border: 1.5px solid #e2e8f0;
             border-radius: 10px;
             padding: 14px 15px;
         }
@@ -451,7 +455,7 @@
         .herr-num {
             font-size: 22px;
             font-weight: 800;
-            color: #8B0A2A;
+            color: #0f172a;
             margin-bottom: 4px;
         }
 
@@ -472,7 +476,7 @@
         /* Organigrama */
         .org-wrap {
             background: #fff;
-            border: 1px solid #f5c6c6;
+            border: 1px solid #e2e8f0;
             border-radius: var(--radius);
             padding: 16px;
             overflow-x: auto;
@@ -485,7 +489,7 @@
         }
 
         .org-node {
-            background: #8B0A2A;
+            background: #0f172a;
             color: #fff;
             border-radius: 7px;
             padding: 7px 14px;
@@ -498,19 +502,19 @@
 
         .org-node.sub {
             background: #FCEAEA;
-            color: #8B0A2A;
-            border: 1.5px solid #f5c6c6;
+            color: #0f172a;
+            border: 1.5px solid #e2e8f0;
         }
 
         .org-node.dir {
-            background: #6B0820;
+            background: #0b1220;
             color: #fff;
         }
 
         .org-node.cargo {
             background: #fff;
             color: var(--muted);
-            border: 1px solid #f5c6c6;
+            border: 1px solid #e2e8f0;
             font-size: 9.5px;
             padding: 4px 10px;
             min-width: 110px;
@@ -518,14 +522,14 @@
 
         .org-line {
             width: 2px;
-            background: #f5c6c6;
+            background: #e2e8f0;
             height: 16px;
             margin: 0 auto;
         }
 
         .org-h-line {
             height: 2px;
-            background: #f5c6c6;
+            background: #e2e8f0;
             flex: 1;
             min-width: 20px;
         }
@@ -551,7 +555,7 @@
         }
 
         .org-dir-card {
-            background: #6B0820;
+            background: #0b1220;
             color: #fff;
             border-radius: 7px;
             padding: 8px 7px;
@@ -570,19 +574,19 @@
 
         .org-cargo-item {
             background: #FCEAEA;
-            color: #8B0A2A;
+            color: #0f172a;
             border-radius: 4px;
             padding: 3px 6px;
             font-size: 8.5px;
             font-weight: 600;
             text-align: center;
-            border: 1px solid #f5c6c6;
+            border: 1px solid #e2e8f0;
         }
 
         /* Política */
         .pol-box {
             background: linear-gradient(135deg, #FCEAEA 0%, #fff 100%);
-            border: 2px solid #8B0A2A;
+            border: 2px solid #0f172a;
             border-radius: 10px;
             padding: 16px 18px;
             margin-bottom: 12px;
@@ -591,7 +595,7 @@
         .pol-title {
             font-size: 11px;
             font-weight: 800;
-            color: #8B0A2A;
+            color: #0f172a;
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 8px;
@@ -621,7 +625,7 @@
             width: 10px;
             height: 10px;
             border-radius: 50%;
-            background: #8B0A2A;
+            background: #0f172a;
             flex-shrink: 0;
             margin-top: 4px;
         }
@@ -634,7 +638,7 @@
         }
 
         .norm-body strong {
-            color: #8B0A2A;
+            color: #0f172a;
         }
 
         /* Efectividad */
@@ -647,7 +651,7 @@
 
         .efec-card {
             background: #fff;
-            border: 1.5px solid #f5c6c6;
+            border: 1.5px solid #e2e8f0;
             border-radius: 10px;
             padding: 14px;
             text-align: center;
@@ -661,7 +665,7 @@
         .efec-title {
             font-size: 11.5px;
             font-weight: 800;
-            color: #8B0A2A;
+            color: #0f172a;
             margin-bottom: 5px;
         }
 
@@ -704,14 +708,14 @@
     <!-- ESTILOS MANUAL -->
     <style>
         .mn-hero {
-            background: linear-gradient(135deg, #8B0A2A 0%, #6B0820 100%);
+            background: linear-gradient(135deg, #0f172a 0%, #0b1220 100%);
             border-radius: 12px;
             padding: 20px 24px;
             margin-bottom: 16px;
             color: #fff;
             position: relative;
             overflow: hidden;
-            border-bottom: 3px solid #C41230;
+            border-bottom: 3px solid #06b6d4;
         }
 
         .mn-hero::after {
@@ -769,7 +773,7 @@
 
         .mn-index {
             background: #fff;
-            border: 1.5px solid #f5c6c6;
+            border: 1.5px solid #e2e8f0;
             border-radius: 10px;
             overflow: hidden;
             position: sticky;
@@ -777,7 +781,7 @@
         }
 
         .mn-index-hdr {
-            background: #8B0A2A;
+            background: #0f172a;
             color: #fff;
             padding: 10px 14px;
             font-size: 10px;
@@ -799,21 +803,21 @@
             font-size: 11px;
             font-weight: 600;
             color: #3D4543;
-            border-bottom: 1px solid #fceaea;
+            border-bottom: 1px solid #f1f5f9;
             transition: all .15s;
             font-family: inherit;
         }
 
         .mn-idx-btn:hover {
-            background: #fceaea;
-            color: #8B0A2A;
+            background: #f1f5f9;
+            color: #0f172a;
         }
 
         .mn-idx-btn.mn-active {
-            background: #fceaea;
-            color: #8B0A2A;
+            background: #f1f5f9;
+            color: #0f172a;
             font-weight: 800;
-            border-left: 3px solid #8B0A2A;
+            border-left: 3px solid #0f172a;
         }
 
         .mn-idx-icon {
@@ -825,7 +829,7 @@
         .mn-idx-num {
             font-size: 9px;
             font-weight: 800;
-            color: #C41230;
+            color: #06b6d4;
             display: block;
             margin-bottom: 1px;
         }
@@ -837,7 +841,7 @@
 
         .mn-card {
             background: #fff;
-            border: 1px solid #f5c6c6;
+            border: 1px solid #e2e8f0;
             border-radius: 10px;
             padding: 16px 18px;
             margin-bottom: 12px;
@@ -846,10 +850,10 @@
         .mn-card-title {
             font-size: 12px;
             font-weight: 800;
-            color: #8B0A2A;
+            color: #0f172a;
             margin-bottom: 11px;
             padding-bottom: 8px;
-            border-bottom: 2px solid #fceaea;
+            border-bottom: 2px solid #f1f5f9;
             display: flex;
             align-items: center;
             gap: 7px;
@@ -857,7 +861,7 @@
 
         .mn-sep {
             height: 2px;
-            background: linear-gradient(90deg, #8B0A2A, #C41230, transparent);
+            background: linear-gradient(90deg, #0f172a, #06b6d4, transparent);
             border-radius: 2px;
             margin: 14px 0 11px;
         }
@@ -870,16 +874,16 @@
         }
 
         .mn-glos-item {
-            background: #fceaea;
+            background: #f1f5f9;
             border-radius: 7px;
             padding: 10px 12px;
-            border-left: 3px solid #8B0A2A;
+            border-left: 3px solid #0f172a;
         }
 
         .mn-glos-term {
             font-size: 11px;
             font-weight: 800;
-            color: #8B0A2A;
+            color: #0f172a;
             margin-bottom: 3px;
         }
 
@@ -892,7 +896,7 @@
 
         /* Objetivos */
         .mn-obj-main {
-            background: linear-gradient(135deg, #8B0A2A, #6B0820);
+            background: linear-gradient(135deg, #0f172a, #0b1220);
             border-radius: 9px;
             padding: 14px 16px;
             color: #fff;
@@ -920,17 +924,17 @@
             gap: 9px;
             padding: 9px 12px;
             background: #fff;
-            border: 1px solid #f5c6c6;
+            border: 1px solid #e2e8f0;
             border-radius: 7px;
             margin-bottom: 7px;
-            border-left: 3px solid #8B0A2A;
+            border-left: 3px solid #0f172a;
         }
 
         .mn-obj-num {
             width: 22px;
             height: 22px;
             border-radius: 50%;
-            background: #8B0A2A;
+            background: #0f172a;
             color: #fff;
             font-size: 10px;
             font-weight: 800;
@@ -949,7 +953,7 @@
         }
 
         .mn-obj-body strong {
-            color: #8B0A2A;
+            color: #0f172a;
         }
 
         /* Principios */
@@ -962,7 +966,7 @@
 
         .mn-princ {
             background: #fff;
-            border: 1.5px solid #f5c6c6;
+            border: 1.5px solid #e2e8f0;
             border-radius: 9px;
             padding: 13px 14px;
             text-align: center;
@@ -972,7 +976,7 @@
             width: 30px;
             height: 30px;
             border-radius: 50%;
-            background: #8B0A2A;
+            background: #0f172a;
             color: #fff;
             font-size: 13px;
             font-weight: 800;
@@ -985,7 +989,7 @@
         .mn-princ-t {
             font-size: 11.5px;
             font-weight: 800;
-            color: #8B0A2A;
+            color: #0f172a;
             margin-bottom: 5px;
         }
 
@@ -1005,7 +1009,7 @@
 
         .mn-efec {
             background: #fff;
-            border: 1.5px solid #f5c6c6;
+            border: 1.5px solid #e2e8f0;
             border-radius: 9px;
             padding: 13px;
             text-align: center;
@@ -1019,7 +1023,7 @@
         .mn-efec-t {
             font-size: 11px;
             font-weight: 800;
-            color: #8B0A2A;
+            color: #0f172a;
             margin-bottom: 4px;
         }
 
@@ -1032,7 +1036,7 @@
 
         /* COSO acordeones */
         .mn-coso {
-            border: 1.5px solid #f5c6c6;
+            border: 1.5px solid #e2e8f0;
             border-radius: 9px;
             margin-bottom: 8px;
             overflow: hidden;
@@ -1049,19 +1053,19 @@
         }
 
         .mn-coso-hdr:hover {
-            background: #fceaea;
+            background: #f1f5f9;
         }
 
         .mn-coso-hdr.mn-open {
-            background: #fceaea;
-            border-bottom: 1px solid #f5c6c6;
+            background: #f1f5f9;
+            border-bottom: 1px solid #e2e8f0;
         }
 
         .mn-coso-n {
             width: 26px;
             height: 26px;
             border-radius: 50%;
-            background: #8B0A2A;
+            background: #0f172a;
             color: #fff;
             font-size: 11px;
             font-weight: 800;
@@ -1081,16 +1085,16 @@
         .mn-coso-badge {
             font-size: 9px;
             padding: 2px 8px;
-            background: #fceaea;
-            color: #8B0A2A;
+            background: #f1f5f9;
+            color: #0f172a;
             border-radius: 8px;
             font-weight: 800;
-            border: 1px solid #f5c6c6;
+            border: 1px solid #e2e8f0;
         }
 
         .mn-coso-arr {
             font-size: 12px;
-            color: #8B0A2A;
+            color: #0f172a;
             transition: transform .2s;
             flex-shrink: 0;
         }
@@ -1116,7 +1120,7 @@
         .mn-coso-sub {
             font-size: 11px;
             font-weight: 800;
-            color: #8B0A2A;
+            color: #0f172a;
             margin: 10px 0 5px;
             display: flex;
             align-items: center;
@@ -1125,9 +1129,9 @@
 
         .mn-valor {
             display: inline-block;
-            background: #fceaea;
-            color: #8B0A2A;
-            border: 1px solid #f5c6c6;
+            background: #f1f5f9;
+            color: #0f172a;
+            border: 1px solid #e2e8f0;
             padding: 4px 12px;
             border-radius: 16px;
             font-size: 10.5px;
@@ -1136,13 +1140,13 @@
         }
 
         .mn-factor {
-            background: #fceaea;
+            background: #f1f5f9;
             border-radius: 6px;
             padding: 7px 11px;
-            border-left: 3px solid #8B0A2A;
+            border-left: 3px solid #0f172a;
             font-size: 11px;
             font-weight: 700;
-            color: #8B0A2A;
+            color: #0f172a;
             margin-bottom: 5px;
             display: flex;
             align-items: center;
@@ -1151,7 +1155,7 @@
 
         .mn-herr {
             background: #fff;
-            border: 1px solid #f5c6c6;
+            border: 1px solid #e2e8f0;
             border-radius: 8px;
             padding: 12px 14px;
             margin-bottom: 7px;
@@ -1160,7 +1164,7 @@
         .mn-herr-n {
             font-size: 20px;
             font-weight: 800;
-            color: #8B0A2A;
+            color: #0f172a;
             margin-bottom: 3px;
         }
 
@@ -1181,7 +1185,7 @@
         /* Organigrama */
         .mn-org {
             background: #fff;
-            border: 1px solid #f5c6c6;
+            border: 1px solid #e2e8f0;
             border-radius: 10px;
             padding: 16px;
             overflow-x: auto;
@@ -1195,7 +1199,7 @@
         }
 
         .mn-org-box {
-            background: #8B0A2A;
+            background: #0f172a;
             color: #fff;
             border-radius: 7px;
             padding: 7px 16px;
@@ -1210,20 +1214,20 @@
         }
 
         .mn-org-box.med {
-            background: #6B0820;
+            background: #0b1220;
         }
 
         .mn-org-box.light {
-            background: #fceaea;
-            color: #8B0A2A;
-            border: 1.5px solid #f5c6c6;
+            background: #f1f5f9;
+            color: #0f172a;
+            border: 1.5px solid #e2e8f0;
             font-size: 10px;
         }
 
         .mn-org-box.cargo {
             background: #fff;
             color: #4A6260;
-            border: 1px solid #f5c6c6;
+            border: 1px solid #e2e8f0;
             font-size: 9.5px;
             padding: 4px 10px;
         }
@@ -1231,7 +1235,7 @@
         .mn-org-line {
             width: 2px;
             height: 14px;
-            background: #f5c6c6;
+            background: #e2e8f0;
             margin: 0 auto;
         }
 
@@ -1243,7 +1247,7 @@
         }
 
         .mn-org-dir {
-            background: #6B0820;
+            background: #0b1220;
             color: #fff;
             border-radius: 7px;
             padding: 8px 8px;
@@ -1261,30 +1265,30 @@
         }
 
         .mn-org-cargo {
-            background: #fceaea;
-            color: #8B0A2A;
+            background: #f1f5f9;
+            color: #0f172a;
             border-radius: 4px;
             padding: 3px 6px;
             font-size: 8.5px;
             font-weight: 600;
             text-align: center;
-            border: 1px solid #f5c6c6;
+            border: 1px solid #e2e8f0;
         }
 
         /* Roles */
         .mn-rol {
             background: #fff;
-            border: 1px solid #f5c6c6;
+            border: 1px solid #e2e8f0;
             border-radius: 8px;
             padding: 12px 14px;
             margin-bottom: 8px;
-            border-left: 4px solid #8B0A2A;
+            border-left: 4px solid #0f172a;
         }
 
         .mn-rol-t {
             font-size: 12px;
             font-weight: 800;
-            color: #8B0A2A;
+            color: #0f172a;
             margin-bottom: 5px;
             display: flex;
             align-items: center;
@@ -1304,7 +1308,7 @@
             align-items: flex-start;
             gap: 10px;
             padding: 8px 0;
-            border-bottom: 1px solid #fceaea;
+            border-bottom: 1px solid #f1f5f9;
         }
 
         .mn-norm:last-child {
@@ -1315,7 +1319,7 @@
             width: 9px;
             height: 9px;
             border-radius: 50%;
-            background: #8B0A2A;
+            background: #0f172a;
             flex-shrink: 0;
             margin-top: 4px;
         }
@@ -1328,13 +1332,13 @@
         }
 
         .mn-norm-body strong {
-            color: #8B0A2A;
+            color: #0f172a;
         }
 
         /* Política */
         .mn-pol {
-            background: linear-gradient(135deg, #fceaea, #fff);
-            border: 2px solid #8B0A2A;
+            background: linear-gradient(135deg, #f1f5f9, #fff);
+            border: 2px solid #0f172a;
             border-radius: 9px;
             padding: 14px 16px;
             margin-bottom: 10px;
@@ -1343,7 +1347,7 @@
         .mn-pol-lbl {
             font-size: 9.5px;
             font-weight: 800;
-            color: #8B0A2A;
+            color: #0f172a;
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 6px;
@@ -1365,7 +1369,7 @@
 
         .mn-anx {
             background: #fff;
-            border: 1.5px solid #f5c6c6;
+            border: 1.5px solid #e2e8f0;
             border-radius: 9px;
             padding: 14px;
             text-align: center;
@@ -1379,7 +1383,7 @@
         .mn-anx-t {
             font-size: 11.5px;
             font-weight: 800;
-            color: #8B0A2A;
+            color: #0f172a;
             margin-bottom: 5px;
         }
 
@@ -1392,14 +1396,14 @@
 
         .mn-anx-code {
             display: inline-block;
-            background: #fceaea;
-            color: #8B0A2A;
+            background: #f1f5f9;
+            color: #0f172a;
             padding: 2px 8px;
             border-radius: 4px;
             font-size: 9px;
             font-weight: 800;
             margin-top: 6px;
-            border: 1px solid #f5c6c6;
+            border: 1px solid #e2e8f0;
         }
 
         /* Versiones */
@@ -1410,26 +1414,26 @@
         }
 
         .mn-ver-table th {
-            background: #8B0A2A;
+            background: #0f172a;
             color: #fff;
             padding: 8px 12px;
             text-align: left;
             font-size: 9.5px;
             font-weight: 800;
-            border: 1px solid #6B0820;
+            border: 1px solid #0b1220;
         }
 
         .mn-ver-table td {
             padding: 8px 12px;
-            border: 1px solid #f5c6c6;
+            border: 1px solid #e2e8f0;
             color: #1A2826;
             font-weight: 600;
         }
 
         /* Confidencial */
         .mn-conf {
-            background: #fceaea;
-            border: 1px solid #f5c6c6;
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
             border-radius: 9px;
             padding: 12px 16px;
             display: flex;
@@ -1445,7 +1449,7 @@
 
         .mn-conf-txt {
             font-size: 11px;
-            color: #8B0A2A;
+            color: #0f172a;
             font-weight: 700;
             line-height: 1.6;
         }
@@ -2692,15 +2696,15 @@
             padding: 24px 16px;
         }
 
-        /* Naples Prime — #8B0A2A borgoña principal · #6B0820 oscuro · #C41230 acento */
+        /* Naples Prime — #0f172a borgoña principal · #0b1220 oscuro · #06b6d4 acento */
         .top-bar {
-            background: linear-gradient(135deg, #8B0A2A 0%, #6B0820 100%);
+            background: linear-gradient(135deg, #0f172a 0%, #0b1220 100%);
             color: #fff;
             padding: 0;
             border-radius: 12px;
             margin-bottom: 20px;
             overflow: hidden;
-            border-bottom: 3px solid #C41230;
+            border-bottom: 3px solid #06b6d4;
         }
 
         .top-bar-inner {
@@ -2773,14 +2777,14 @@
         }
 
         .nav-tab:hover {
-            background: #F9EAED;
-            color: #8B0A2A;
+            background: #ecfeff;
+            color: #0f172a;
         }
 
         .nav-tab.active {
-            background: #8B0A2A;
+            background: #0f172a;
             color: #fff;
-            border-color: #8B0A2A;
+            border-color: #0f172a;
         }
 
         .section {
@@ -2792,13 +2796,13 @@
         }
 
         .hero {
-            background: linear-gradient(135deg, #8B0A2A 0%, #6B0820 100%);
+            background: linear-gradient(135deg, #0f172a 0%, #0b1220 100%);
             border-radius: var(--radius);
             padding: 16px 28px 14px;
             margin-bottom: 18px;
             color: #fff;
             text-align: center;
-            border-bottom: 3px solid #C41230;
+            border-bottom: 3px solid #06b6d4;
         }
 
         .hero-title {
@@ -2977,7 +2981,7 @@
             border-radius: 8px;
             padding: 12px 14px;
             margin-bottom: 8px;
-            border: 1px solid #f5c6c6;
+            border: 1px solid #e2e8f0;
             border-left: 4px solid var(--extreme);
         }
 
@@ -3407,10 +3411,46 @@
         }
     </style>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-transparent overflow-hidden sm:rounded-lg">
-                <div class="p-6">
+    <style>
+        /* ── Armonización con el sistema visual de la plataforma ── */
+        .audit-module { font-family: inherit; color: #0f172a; }
+        .audit-module .wrapper { max-width: none; margin: 0; padding: 0; }
+        .audit-module .top-bar {
+            position: relative;
+            border: 0;
+            border-radius: 1.5rem;
+            background:
+                radial-gradient(800px 360px at 10% -30%, rgba(56,189,248,.20), transparent 60%),
+                radial-gradient(600px 360px at 100% 130%, rgba(99,102,241,.25), transparent 60%),
+                linear-gradient(160deg, #0b1220 0%, #0f172a 60%, #111827 100%);
+            box-shadow: 0 1px 2px rgba(15,23,42,.06);
+        }
+        .audit-module .top-bar-inner { padding: 22px 24px; }
+        .audit-module .top-bar-title { font-size: 22px; letter-spacing: -.01em; }
+        .audit-module .top-bar-meta { font-style: normal; color: #94a3b8; }
+        .audit-module .nav-tabs {
+            position: sticky; top: 4.5rem; z-index: 20;
+            flex-wrap: nowrap; overflow-x: auto; scrollbar-width: thin;
+            border-radius: 1rem; border-color: #e2e8f0;
+            background: rgba(255,255,255,.92); backdrop-filter: blur(8px);
+            box-shadow: 0 1px 2px rgba(15,23,42,.04);
+        }
+        .audit-module .nav-tab {
+            white-space: nowrap; flex-shrink: 0;
+            border-radius: .6rem; border-color: #e2e8f0; color: #475569;
+            font-family: inherit; font-weight: 600;
+        }
+        .audit-module .nav-tab:hover { background: #f1f5f9; color: #0f172a; }
+        .audit-module .nav-tab.active,
+        .audit-module .nav-tab.mining.active { background: #0f172a !important; color: #fff !important; border-color: #0f172a !important; }
+        .audit-module .nav-tab.active i { color: #67e8f9 !important; }
+        .audit-module .hero, .audit-module .man-hero, .audit-module .mn-hero { border-bottom: 0; border-radius: 1.25rem; }
+    </style>
+
+    <div class="audit-module mx-auto max-w-7xl px-4 pb-12 pt-6 sm:px-6 lg:px-8">
+        <div>
+            <div>
+                <div>
 
                     <div class="wrapper">
                         <div class="wrapper">
@@ -3422,11 +3462,11 @@
                                         <svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Naples Prime logo">
                                             <rect x="1" y="1" width="50" height="50" rx="4" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="1.5" />
                                             <path d="M10 40 L10 12 L22 12 L42 34 L42 12" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-                                            <path d="M10 40 L42 40" fill="none" stroke="#C41230" stroke-width="2.5" stroke-linecap="round" />
+                                            <path d="M10 40 L42 40" fill="none" stroke="#06b6d4" stroke-width="2.5" stroke-linecap="round" />
                                         </svg>
                                         <div style="display:flex;flex-direction:column;align-items:center;line-height:1.1;">
                                             <span style="font-size:13px;font-weight:800;letter-spacing:3px;color:#fff;text-transform:uppercase;">NAPLES</span>
-                                            <span style="font-size:10px;font-weight:400;letter-spacing:3px;color:#C41230;text-transform:uppercase;">PRIME</span>
+                                            <span style="font-size:10px;font-weight:400;letter-spacing:3px;color:#06b6d4;text-transform:uppercase;">PRIME</span>
                                         </div>
                                     </div>
                                     <div class="top-bar-title">Modelo de Control Interno - SCI Naples</div>
@@ -3443,7 +3483,7 @@
                                 <button class="nav-tab" onclick="showSection('s5')" style="border-bottom:3px solid var(--low);"><i class="ti ti-shield"></i> 5 · Controles</button>
                                 <button class="nav-tab" onclick="showSection('s6')" style="border-bottom:3px solid var(--blue);"><i class="ti ti-book"></i> 6 · Criterios</button>
                                 <button class="nav-tab mining" onclick="showSection('sMin')" style="border-bottom:3px solid var(--eg-teal);"><i class="ti ti-pickaxe"></i> 7 · LA/FT Minería</button>
-                                <button class="nav-tab" onclick="showSection('sManual')" style="border-bottom:3px solid #8B0A2A;color:#8B0A2A;border-color:#f5c6c6;" onmouseover="this.style.background='#FCEAEA';this.style.borderColor='#8B0A2A'" onmouseout="this.style.background='#fff';this.style.borderColor='#f5c6c6';this.style.color='#8B0A2A'"><i class="ti ti-book-2" style="color:#8B0A2A;"></i> 8 · Manual</button>
+                                <button class="nav-tab" onclick="showSection('sManual')" style="border-bottom:3px solid #0f172a;color:#0f172a;border-color:#e2e8f0;" onmouseover="this.style.background='#FCEAEA';this.style.borderColor='#0f172a'" onmouseout="this.style.background='#fff';this.style.borderColor='#e2e8f0';this.style.color='#0f172a'"><i class="ti ti-book-2" style="color:#0f172a;"></i> 8 · Manual</button>
                                 <button class="nav-tab" style="border-color:#2962B8;color:#2962B8;" onmouseover="this.style.background='#EBF2FF';this.style.borderColor='#2962B8'" onmouseout="this.style.background='#fff';this.style.borderColor='#2962B8'" onclick="showSection('sProp')"><i class="ti ti-clipboard-list" style="color:#2962B8;"></i> 📋 Propuesta</button>
                             </div>
 
@@ -4895,12 +4935,12 @@
                                         </thead>
                                         <tbody>
                                             <tr style="background:#FFEBEE;">
-                                                <td style="padding:8px 10px;border:1px solid #f0d0d0;font-weight:800;color:#7A1A1A;font-size:10.5px;">DRC.001 · Riesgo y Cumplimiento</td>
-                                                <td style="padding:8px 10px;border:1px solid #f0d0d0;"><span style="background:#FFEBEE;color:#B71C1C;padding:2px 8px;border-radius:10px;font-size:9px;font-weight:800;">RSCI-1 Extremo</span><br><span style="font-size:10px;color:var(--muted);">RSCI-4, 5, 6 Alto</span></td>
-                                                <td style="padding:8px 10px;border:1px solid #f0d0d0;font-size:10.5px;font-weight:600;color:var(--text);">Implementar protocolo Debida Diligencia SAGRILAFT. Verificar contrapartes en listas restrictivas UIAF/OFAC. Formalizar cronograma UIAF/SuperSociedades.</td>
-                                                <td style="padding:8px 10px;border:1px solid #f0d0d0;text-align:center;"><span style="background:#E3F2FD;color:#0D47A1;padding:2px 7px;border-radius:4px;font-size:9px;font-weight:800;">Preventivo</span><br><span style="background:#E8F5E9;color:#1B5E20;padding:2px 7px;border-radius:4px;font-size:9px;font-weight:800;margin-top:3px;display:inline-block;">Detectivo</span></td>
-                                                <td style="padding:8px 10px;border:1px solid #f0d0d0;font-size:10px;color:var(--muted);font-weight:600;">Walkthrough del proceso de vinculación · Revisión de expedientes de contrapartes · Verificación en listas UIAF · Confirmación de reportes periódicos</td>
-                                                <td style="padding:8px 10px;border:1px solid #f0d0d0;text-align:center;"><span style="background:#2962B8;color:#fff;padding:3px 9px;border-radius:4px;font-size:9.5px;font-weight:800;">M1–M2</span></td>
+                                                <td style="padding:8px 10px;border:1px solid #e2e8f0;font-weight:800;color:#7A1A1A;font-size:10.5px;">DRC.001 · Riesgo y Cumplimiento</td>
+                                                <td style="padding:8px 10px;border:1px solid #e2e8f0;"><span style="background:#FFEBEE;color:#B71C1C;padding:2px 8px;border-radius:10px;font-size:9px;font-weight:800;">RSCI-1 Extremo</span><br><span style="font-size:10px;color:var(--muted);">RSCI-4, 5, 6 Alto</span></td>
+                                                <td style="padding:8px 10px;border:1px solid #e2e8f0;font-size:10.5px;font-weight:600;color:var(--text);">Implementar protocolo Debida Diligencia SAGRILAFT. Verificar contrapartes en listas restrictivas UIAF/OFAC. Formalizar cronograma UIAF/SuperSociedades.</td>
+                                                <td style="padding:8px 10px;border:1px solid #e2e8f0;text-align:center;"><span style="background:#E3F2FD;color:#0D47A1;padding:2px 7px;border-radius:4px;font-size:9px;font-weight:800;">Preventivo</span><br><span style="background:#E8F5E9;color:#1B5E20;padding:2px 7px;border-radius:4px;font-size:9px;font-weight:800;margin-top:3px;display:inline-block;">Detectivo</span></td>
+                                                <td style="padding:8px 10px;border:1px solid #e2e8f0;font-size:10px;color:var(--muted);font-weight:600;">Walkthrough del proceso de vinculación · Revisión de expedientes de contrapartes · Verificación en listas UIAF · Confirmación de reportes periódicos</td>
+                                                <td style="padding:8px 10px;border:1px solid #e2e8f0;text-align:center;"><span style="background:#2962B8;color:#fff;padding:3px 9px;border-radius:4px;font-size:9.5px;font-weight:800;">M1–M2</span></td>
                                             </tr>
                                             <tr style="background:#fff8e8;">
                                                 <td style="padding:8px 10px;border:1px solid #f0e0c0;font-weight:800;color:#7A3800;font-size:10.5px;">DJUR.002 · Dirección Jurídica</td>
@@ -4919,28 +4959,28 @@
                                                 <td style="padding:8px 10px;border:1px solid var(--border);text-align:center;"><span style="background:#2962B8;color:#fff;padding:3px 9px;border-radius:4px;font-size:9.5px;font-weight:800;">M2–M4</span></td>
                                             </tr>
                                             <tr style="background:#FFEBEE;">
-                                                <td style="padding:8px 10px;border:1px solid #f0d0d0;font-weight:800;color:#7A1A1A;font-size:10.5px;">DFC.004 · Financiero y Contable</td>
-                                                <td style="padding:8px 10px;border:1px solid #f0d0d0;"><span style="background:#FFEBEE;color:#B71C1C;padding:2px 8px;border-radius:10px;font-size:9px;font-weight:800;">RSCI-25, 26, 31 Extremo</span><br><span style="font-size:10px;color:var(--muted);">RSCI-19–24, 29–33 Alto</span></td>
-                                                <td style="padding:8px 10px;border:1px solid #f0d0d0;font-size:10.5px;font-weight:600;color:var(--text);">Documentar política de planeación financiera. Formalizar controles de tesorería y operaciones autorizadas. Implementar conciliaciones bancarias periódicas y matriz de aprobaciones.</td>
-                                                <td style="padding:8px 10px;border:1px solid #f0d0d0;text-align:center;"><span style="background:#E3F2FD;color:#0D47A1;padding:2px 7px;border-radius:4px;font-size:9px;font-weight:800;">Preventivo</span><br><span style="background:#E8F5E9;color:#1B5E20;padding:2px 7px;border-radius:4px;font-size:9px;font-weight:800;margin-top:3px;display:inline-block;">Detectivo</span><br><span style="background:#FFF3E0;color:#E65100;padding:2px 7px;border-radius:4px;font-size:9px;font-weight:800;margin-top:3px;display:inline-block;">Correctivo</span></td>
-                                                <td style="padding:8px 10px;border:1px solid #f0d0d0;font-size:10px;color:var(--muted);font-weight:600;">Prueba de operaciones · Revisión de autorizaciones de pagos · Conciliación de cuentas bancarias · Verificación de cumplimiento tributario · Análisis de razonabilidad NIIF · Revisión de activos fijos</td>
-                                                <td style="padding:8px 10px;border:1px solid #f0d0d0;text-align:center;"><span style="background:#C0392B;color:#fff;padding:3px 9px;border-radius:4px;font-size:9.5px;font-weight:800;">M2–M3</span></td>
+                                                <td style="padding:8px 10px;border:1px solid #e2e8f0;font-weight:800;color:#7A1A1A;font-size:10.5px;">DFC.004 · Financiero y Contable</td>
+                                                <td style="padding:8px 10px;border:1px solid #e2e8f0;"><span style="background:#FFEBEE;color:#B71C1C;padding:2px 8px;border-radius:10px;font-size:9px;font-weight:800;">RSCI-25, 26, 31 Extremo</span><br><span style="font-size:10px;color:var(--muted);">RSCI-19–24, 29–33 Alto</span></td>
+                                                <td style="padding:8px 10px;border:1px solid #e2e8f0;font-size:10.5px;font-weight:600;color:var(--text);">Documentar política de planeación financiera. Formalizar controles de tesorería y operaciones autorizadas. Implementar conciliaciones bancarias periódicas y matriz de aprobaciones.</td>
+                                                <td style="padding:8px 10px;border:1px solid #e2e8f0;text-align:center;"><span style="background:#E3F2FD;color:#0D47A1;padding:2px 7px;border-radius:4px;font-size:9px;font-weight:800;">Preventivo</span><br><span style="background:#E8F5E9;color:#1B5E20;padding:2px 7px;border-radius:4px;font-size:9px;font-weight:800;margin-top:3px;display:inline-block;">Detectivo</span><br><span style="background:#FFF3E0;color:#E65100;padding:2px 7px;border-radius:4px;font-size:9px;font-weight:800;margin-top:3px;display:inline-block;">Correctivo</span></td>
+                                                <td style="padding:8px 10px;border:1px solid #e2e8f0;font-size:10px;color:var(--muted);font-weight:600;">Prueba de operaciones · Revisión de autorizaciones de pagos · Conciliación de cuentas bancarias · Verificación de cumplimiento tributario · Análisis de razonabilidad NIIF · Revisión de activos fijos</td>
+                                                <td style="padding:8px 10px;border:1px solid #e2e8f0;text-align:center;"><span style="background:#C0392B;color:#fff;padding:3px 9px;border-radius:4px;font-size:9.5px;font-weight:800;">M2–M3</span></td>
                                             </tr>
                                             <tr style="background:#FFEBEE;">
-                                                <td style="padding:8px 10px;border:1px solid #f0d0d0;font-weight:800;color:#7A1A1A;font-size:10.5px;">CRL.005 · Dirección Comercial</td>
-                                                <td style="padding:8px 10px;border:1px solid #f0d0d0;"><span style="background:#FFEBEE;color:#B71C1C;padding:2px 8px;border-radius:10px;font-size:9px;font-weight:800;">RSCI-35, 36, 45 Extremo</span><br><span style="font-size:10px;color:var(--muted);">RSCI-34, 37–44 Alto</span></td>
-                                                <td style="padding:8px 10px;border:1px solid #f0d0d0;font-size:10.5px;font-weight:600;color:var(--text);">Establecer política de coberturas financieras. Implementar controles de acceso al laboratorio. Formalizar procedimiento de trazabilidad de inventarios y análisis de material.</td>
-                                                <td style="padding:8px 10px;border:1px solid #f0d0d0;text-align:center;"><span style="background:#E3F2FD;color:#0D47A1;padding:2px 7px;border-radius:4px;font-size:9px;font-weight:800;">Preventivo</span><br><span style="background:#E8F5E9;color:#1B5E20;padding:2px 7px;border-radius:4px;font-size:9px;font-weight:800;margin-top:3px;display:inline-block;">Detectivo</span></td>
-                                                <td style="padding:8px 10px;border:1px solid #f0d0d0;font-size:10px;color:var(--muted);font-weight:600;">Prueba de trazabilidad de inventarios · Verificación de accesos al laboratorio · Revisión de coberturas financieras · Análisis de riesgo de mercado · Inspección física del sitio de operación</td>
-                                                <td style="padding:8px 10px;border:1px solid #f0d0d0;text-align:center;"><span style="background:#C0392B;color:#fff;padding:3px 9px;border-radius:4px;font-size:9.5px;font-weight:800;">M2–M4</span></td>
+                                                <td style="padding:8px 10px;border:1px solid #e2e8f0;font-weight:800;color:#7A1A1A;font-size:10.5px;">CRL.005 · Dirección Comercial</td>
+                                                <td style="padding:8px 10px;border:1px solid #e2e8f0;"><span style="background:#FFEBEE;color:#B71C1C;padding:2px 8px;border-radius:10px;font-size:9px;font-weight:800;">RSCI-35, 36, 45 Extremo</span><br><span style="font-size:10px;color:var(--muted);">RSCI-34, 37–44 Alto</span></td>
+                                                <td style="padding:8px 10px;border:1px solid #e2e8f0;font-size:10.5px;font-weight:600;color:var(--text);">Establecer política de coberturas financieras. Implementar controles de acceso al laboratorio. Formalizar procedimiento de trazabilidad de inventarios y análisis de material.</td>
+                                                <td style="padding:8px 10px;border:1px solid #e2e8f0;text-align:center;"><span style="background:#E3F2FD;color:#0D47A1;padding:2px 7px;border-radius:4px;font-size:9px;font-weight:800;">Preventivo</span><br><span style="background:#E8F5E9;color:#1B5E20;padding:2px 7px;border-radius:4px;font-size:9px;font-weight:800;margin-top:3px;display:inline-block;">Detectivo</span></td>
+                                                <td style="padding:8px 10px;border:1px solid #e2e8f0;font-size:10px;color:var(--muted);font-weight:600;">Prueba de trazabilidad de inventarios · Verificación de accesos al laboratorio · Revisión de coberturas financieras · Análisis de riesgo de mercado · Inspección física del sitio de operación</td>
+                                                <td style="padding:8px 10px;border:1px solid #e2e8f0;text-align:center;"><span style="background:#C0392B;color:#fff;padding:3px 9px;border-radius:4px;font-size:9.5px;font-weight:800;">M2–M4</span></td>
                                             </tr>
                                             <tr style="background:#FFEBEE;">
-                                                <td style="padding:8px 10px;border:1px solid #f0d0d0;font-weight:800;color:#7A1A1A;font-size:10.5px;">ASG.006 · TI y Sostenibilidad</td>
-                                                <td style="padding:8px 10px;border:1px solid #f0d0d0;"><span style="background:#FFEBEE;color:#B71C1C;padding:2px 8px;border-radius:10px;font-size:9px;font-weight:800;">RSCI-48 Extremo</span><br><span style="font-size:10px;color:var(--muted);">RSCI-46, 47, 49–54 Alto</span></td>
-                                                <td style="padding:8px 10px;border:1px solid #f0d0d0;font-size:10.5px;font-weight:600;color:var(--text);">Implementar protocolos de ciberseguridad y política de seguridad de la información. Formalizar plan de copias de seguridad automáticas. Diseñar plan de sostenibilidad ASG.</td>
-                                                <td style="padding:8px 10px;border:1px solid #f0d0d0;text-align:center;"><span style="background:#E3F2FD;color:#0D47A1;padding:2px 7px;border-radius:4px;font-size:9px;font-weight:800;">Preventivo</span><br><span style="background:#E8F5E9;color:#1B5E20;padding:2px 7px;border-radius:4px;font-size:9px;font-weight:800;margin-top:3px;display:inline-block;">Detectivo</span></td>
-                                                <td style="padding:8px 10px;border:1px solid #f0d0d0;font-size:10px;color:var(--muted);font-weight:600;">Revisión de controles de acceso lógico · Prueba de restauración de copias de seguridad · Análisis de vulnerabilidades · Verificación de licencias vigentes · Revisión plan de sostenibilidad</td>
-                                                <td style="padding:8px 10px;border:1px solid #f0d0d0;text-align:center;"><span style="background:#C0392B;color:#fff;padding:3px 9px;border-radius:4px;font-size:9.5px;font-weight:800;">M3–M4</span></td>
+                                                <td style="padding:8px 10px;border:1px solid #e2e8f0;font-weight:800;color:#7A1A1A;font-size:10.5px;">ASG.006 · TI y Sostenibilidad</td>
+                                                <td style="padding:8px 10px;border:1px solid #e2e8f0;"><span style="background:#FFEBEE;color:#B71C1C;padding:2px 8px;border-radius:10px;font-size:9px;font-weight:800;">RSCI-48 Extremo</span><br><span style="font-size:10px;color:var(--muted);">RSCI-46, 47, 49–54 Alto</span></td>
+                                                <td style="padding:8px 10px;border:1px solid #e2e8f0;font-size:10.5px;font-weight:600;color:var(--text);">Implementar protocolos de ciberseguridad y política de seguridad de la información. Formalizar plan de copias de seguridad automáticas. Diseñar plan de sostenibilidad ASG.</td>
+                                                <td style="padding:8px 10px;border:1px solid #e2e8f0;text-align:center;"><span style="background:#E3F2FD;color:#0D47A1;padding:2px 7px;border-radius:4px;font-size:9px;font-weight:800;">Preventivo</span><br><span style="background:#E8F5E9;color:#1B5E20;padding:2px 7px;border-radius:4px;font-size:9px;font-weight:800;margin-top:3px;display:inline-block;">Detectivo</span></td>
+                                                <td style="padding:8px 10px;border:1px solid #e2e8f0;font-size:10px;color:var(--muted);font-weight:600;">Revisión de controles de acceso lógico · Prueba de restauración de copias de seguridad · Análisis de vulnerabilidades · Verificación de licencias vigentes · Revisión plan de sostenibilidad</td>
+                                                <td style="padding:8px 10px;border:1px solid #e2e8f0;text-align:center;"><span style="background:#C0392B;color:#fff;padding:3px 9px;border-radius:4px;font-size:9.5px;font-weight:800;">M3–M4</span></td>
                                             </tr>
                                             <tr style="background:#FAFCFD;">
                                                 <td style="padding:8px 10px;border:1px solid var(--border);font-weight:800;color:var(--text);font-size:10.5px;">DOLN.007 · Otras Líneas Negocio</td>
@@ -4965,7 +5005,7 @@
                                 <!-- GRID FICHAS EXTREMOS -->
                                 <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:18px;">
 
-                                    <div style="background:#fff;border:1px solid #f5c6c6;border-left:4px solid var(--extreme);border-radius:8px;padding:13px 14px;">
+                                    <div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid var(--extreme);border-radius:8px;padding:13px 14px;">
                                         <div style="font-size:10px;font-weight:800;color:#B71C1C;margin-bottom:4px;">RSCI-1 · DRC.001 · Score: 15</div>
                                         <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:5px;line-height:1.3;">Vinculación de contrapartes con actividades LAFT</div>
                                         <div style="font-size:10px;color:var(--muted);margin-bottom:6px;line-height:1.4;">Causa: Fallas en la debida diligencia de contrapartes.</div>
@@ -4978,7 +5018,7 @@
                                         <div style="background:#EBF2FF;border-radius:4px;padding:4px 8px;margin-top:5px;font-size:9.5px;font-weight:800;color:#1A3E7A;display:inline-block;">Mes 1–2</div>
                                     </div>
 
-                                    <div style="background:#fff;border:1px solid #f5c6c6;border-left:4px solid var(--extreme);border-radius:8px;padding:13px 14px;">
+                                    <div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid var(--extreme);border-radius:8px;padding:13px 14px;">
                                         <div style="font-size:10px;font-weight:800;color:#B71C1C;margin-bottom:4px;">RSCI-25 · DFC.004 · Score: 15</div>
                                         <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:5px;line-height:1.3;">Incumplimiento en presentación y pago de obligaciones tributarias</div>
                                         <div style="font-size:10px;color:var(--muted);margin-bottom:6px;line-height:1.4;">Causa: Falta de presupuesto y programación para el pago fiscal.</div>
@@ -4990,7 +5030,7 @@
                                         <div style="background:#EBF2FF;border-radius:4px;padding:4px 8px;margin-top:5px;font-size:9.5px;font-weight:800;color:#1A3E7A;display:inline-block;">Mes 2–3</div>
                                     </div>
 
-                                    <div style="background:#fff;border:1px solid #f5c6c6;border-left:4px solid var(--extreme);border-radius:8px;padding:13px 14px;">
+                                    <div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid var(--extreme);border-radius:8px;padding:13px 14px;">
                                         <div style="font-size:10px;font-weight:800;color:#B71C1C;margin-bottom:4px;">RSCI-26 · DFC.004 · Score: 15 ⚠ CONTROL INACEPTABLE</div>
                                         <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:5px;line-height:1.3;">Falta de planeación financiera</div>
                                         <div style="font-size:10px;color:var(--muted);margin-bottom:6px;line-height:1.4;">Causa: Fallas en presupuesto y estrategias financieras del año gravable.</div>
@@ -5003,7 +5043,7 @@
                                         <div style="background:#FFEBEE;border-radius:4px;padding:4px 8px;margin-top:5px;font-size:9.5px;font-weight:800;color:#B71C1C;display:inline-block;">Mes 1 — Urgente</div>
                                     </div>
 
-                                    <div style="background:#fff;border:1px solid #f5c6c6;border-left:4px solid var(--extreme);border-radius:8px;padding:13px 14px;">
+                                    <div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid var(--extreme);border-radius:8px;padding:13px 14px;">
                                         <div style="font-size:10px;font-weight:800;color:#B71C1C;margin-bottom:4px;">RSCI-31 · DFC.004 · Score: 15</div>
                                         <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:5px;line-height:1.3;">Operaciones no autorizadas</div>
                                         <div style="font-size:10px;color:var(--muted);margin-bottom:6px;line-height:1.4;">Causa: Incumplimiento en políticas de tesorería.</div>
@@ -5016,7 +5056,7 @@
                                         <div style="background:#EBF2FF;border-radius:4px;padding:4px 8px;margin-top:5px;font-size:9.5px;font-weight:800;color:#1A3E7A;display:inline-block;">Mes 2–3</div>
                                     </div>
 
-                                    <div style="background:#fff;border:1px solid #f5c6c6;border-left:4px solid var(--extreme);border-radius:8px;padding:13px 14px;">
+                                    <div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid var(--extreme);border-radius:8px;padding:13px 14px;">
                                         <div style="font-size:10px;font-weight:800;color:#B71C1C;margin-bottom:4px;">RSCI-35 · CRL.005 · Score: 20 ★ MAYOR SCORE</div>
                                         <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:5px;line-height:1.3;">Riesgo de mercado en cierres de negociaciones</div>
                                         <div style="font-size:10px;color:var(--muted);margin-bottom:6px;line-height:1.4;">Causa: Variaciones y fluctuaciones de precios y tasas de mercado. Prob. 5 (Casi cierto).</div>
@@ -5029,7 +5069,7 @@
                                         <div style="background:#FFEBEE;border-radius:4px;padding:4px 8px;margin-top:5px;font-size:9.5px;font-weight:800;color:#B71C1C;display:inline-block;">Mes 1 — Prioridad Gerencia</div>
                                     </div>
 
-                                    <div style="background:#fff;border:1px solid #f5c6c6;border-left:4px solid var(--extreme);border-radius:8px;padding:13px 14px;">
+                                    <div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid var(--extreme);border-radius:8px;padding:13px 14px;">
                                         <div style="font-size:10px;font-weight:800;color:#B71C1C;margin-bottom:4px;">RSCI-36 · CRL.005 · Score: 16 ⚠ CONTROL INACEPTABLE</div>
                                         <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:5px;line-height:1.3;">Restricción de coberturas financieras</div>
                                         <div style="font-size:10px;color:var(--muted);margin-bottom:6px;line-height:1.4;">Causa: No mantener indicadores financieros favorables y reputación negativa.</div>
@@ -5042,7 +5082,7 @@
                                         <div style="background:#FFEBEE;border-radius:4px;padding:4px 8px;margin-top:5px;font-size:9.5px;font-weight:800;color:#B71C1C;display:inline-block;">Mes 1 — Urgente</div>
                                     </div>
 
-                                    <div style="background:#fff;border:1px solid #f5c6c6;border-left:4px solid var(--extreme);border-radius:8px;padding:13px 14px;">
+                                    <div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid var(--extreme);border-radius:8px;padding:13px 14px;">
                                         <div style="font-size:10px;font-weight:800;color:#B71C1C;margin-bottom:4px;">RSCI-45 · CRL.005 · Score: 15</div>
                                         <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:5px;line-height:1.3;">Vulnerabilidad en la seguridad del sitio del laboratorio</div>
                                         <div style="font-size:10px;color:var(--muted);margin-bottom:6px;line-height:1.4;">Causa: Incumplimiento de políticas de seguridad para custodiar el material.</div>
@@ -5055,7 +5095,7 @@
                                         <div style="background:#EBF2FF;border-radius:4px;padding:4px 8px;margin-top:5px;font-size:9.5px;font-weight:800;color:#1A3E7A;display:inline-block;">Mes 3–4</div>
                                     </div>
 
-                                    <div style="background:#fff;border:1px solid #f5c6c6;border-left:4px solid var(--extreme);border-radius:8px;padding:13px 14px;">
+                                    <div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid var(--extreme);border-radius:8px;padding:13px 14px;">
                                         <div style="font-size:10px;font-weight:800;color:#B71C1C;margin-bottom:4px;">RSCI-48 · ASG.006 · Score: 15</div>
                                         <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:5px;line-height:1.3;">Ataque cibernético</div>
                                         <div style="font-size:10px;color:var(--muted);margin-bottom:6px;line-height:1.4;">Causa: Falta de protocolos de seguridad informática.</div>
@@ -5199,61 +5239,61 @@
                             </div>
                             <div class="section" id="sManual">
 
-                                <div style="background:linear-gradient(135deg,#8B0A2A 0%,#6B0820 100%);border-radius:10px;padding:10px 24px;margin-bottom:16px;text-align:center;border-bottom:3px solid #C41230;">
+                                <div style="background:linear-gradient(135deg,#0f172a 0%,#0b1220 100%);border-radius:10px;padding:10px 24px;margin-bottom:16px;text-align:center;border-bottom:3px solid #06b6d4;">
                                     <div style="font-size:22px;font-weight:700;color:#fff;letter-spacing:.4px;">Manual de Control Interno</div>
                                 </div>
 
                                 <div style="display:grid;grid-template-columns:200px 1fr;gap:14px;align-items:start;">
 
-                                    <div style="background:#fff;border:1.5px solid #f5c6c6;border-radius:10px;overflow:hidden;">
-                                        <div style="background:#8B0A2A;color:#fff;padding:10px 14px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;">📋 Tabla de Contenido</div>
-                                        <div id="btn-t1" onclick="mnTab('t1')" style="display:flex;align-items:center;gap:8px;padding:9px 14px;font-size:11px;font-weight:600;color:#3D4543;border-bottom:1px solid #fceaea;cursor:pointer;transition:all .15s;">
+                                    <div style="background:#fff;border:1.5px solid #e2e8f0;border-radius:10px;overflow:hidden;">
+                                        <div style="background:#0f172a;color:#fff;padding:10px 14px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;">📋 Tabla de Contenido</div>
+                                        <div id="btn-t1" onclick="mnTab('t1')" style="display:flex;align-items:center;gap:8px;padding:9px 14px;font-size:11px;font-weight:600;color:#3D4543;border-bottom:1px solid #f1f5f9;cursor:pointer;transition:all .15s;">
                                             <span style="font-size:13px;flex-shrink:0;width:18px;">📖</span>
-                                            <span><span style="font-size:9px;font-weight:800;color:#C41230;display:block;">Cap. 1</span>Glosario</span>
+                                            <span><span style="font-size:9px;font-weight:800;color:#06b6d4;display:block;">Cap. 1</span>Glosario</span>
                                         </div>
-                                        <div id="btn-t2" onclick="mnTab('t2')" style="display:flex;align-items:center;gap:8px;padding:9px 14px;font-size:11px;font-weight:600;color:#3D4543;border-bottom:1px solid #fceaea;cursor:pointer;transition:all .15s;">
+                                        <div id="btn-t2" onclick="mnTab('t2')" style="display:flex;align-items:center;gap:8px;padding:9px 14px;font-size:11px;font-weight:600;color:#3D4543;border-bottom:1px solid #f1f5f9;cursor:pointer;transition:all .15s;">
                                             <span style="font-size:13px;flex-shrink:0;width:18px;">📝</span>
-                                            <span><span style="font-size:9px;font-weight:800;color:#C41230;display:block;">Cap. 2</span>Introducción</span>
+                                            <span><span style="font-size:9px;font-weight:800;color:#06b6d4;display:block;">Cap. 2</span>Introducción</span>
                                         </div>
-                                        <div id="btn-t3" onclick="mnTab('t3')" style="display:flex;align-items:center;gap:8px;padding:9px 14px;font-size:11px;font-weight:600;color:#3D4543;border-bottom:1px solid #fceaea;cursor:pointer;transition:all .15s;">
+                                        <div id="btn-t3" onclick="mnTab('t3')" style="display:flex;align-items:center;gap:8px;padding:9px 14px;font-size:11px;font-weight:600;color:#3D4543;border-bottom:1px solid #f1f5f9;cursor:pointer;transition:all .15s;">
                                             <span style="font-size:13px;flex-shrink:0;width:18px;">🏢</span>
-                                            <span><span style="font-size:9px;font-weight:800;color:#C41230;display:block;">Cap. 3</span>Generalidades</span>
+                                            <span><span style="font-size:9px;font-weight:800;color:#06b6d4;display:block;">Cap. 3</span>Generalidades</span>
                                         </div>
-                                        <div id="btn-t4" onclick="mnTab('t4')" style="display:flex;align-items:center;gap:8px;padding:9px 14px;font-size:11px;font-weight:600;color:#3D4543;border-bottom:1px solid #fceaea;cursor:pointer;transition:all .15s;">
+                                        <div id="btn-t4" onclick="mnTab('t4')" style="display:flex;align-items:center;gap:8px;padding:9px 14px;font-size:11px;font-weight:600;color:#3D4543;border-bottom:1px solid #f1f5f9;cursor:pointer;transition:all .15s;">
                                             <span style="font-size:13px;flex-shrink:0;width:18px;">🎯</span>
-                                            <span><span style="font-size:9px;font-weight:800;color:#C41230;display:block;">Cap. 4–5</span>Objetivos</span>
+                                            <span><span style="font-size:9px;font-weight:800;color:#06b6d4;display:block;">Cap. 4–5</span>Objetivos</span>
                                         </div>
-                                        <div id="btn-t5" onclick="mnTab('t5')" style="display:flex;align-items:center;gap:8px;padding:9px 14px;font-size:11px;font-weight:600;color:#3D4543;border-bottom:1px solid #fceaea;cursor:pointer;transition:all .15s;">
+                                        <div id="btn-t5" onclick="mnTab('t5')" style="display:flex;align-items:center;gap:8px;padding:9px 14px;font-size:11px;font-weight:600;color:#3D4543;border-bottom:1px solid #f1f5f9;cursor:pointer;transition:all .15s;">
                                             <span style="font-size:13px;flex-shrink:0;width:18px;">📐</span>
-                                            <span><span style="font-size:9px;font-weight:800;color:#C41230;display:block;">Cap. 6</span>Alcance</span>
+                                            <span><span style="font-size:9px;font-weight:800;color:#06b6d4;display:block;">Cap. 6</span>Alcance</span>
                                         </div>
-                                        <div id="btn-t6" onclick="mnTab('t6')" style="display:flex;align-items:center;gap:8px;padding:9px 14px;font-size:11px;font-weight:600;color:#3D4543;border-bottom:1px solid #fceaea;cursor:pointer;transition:all .15s;">
+                                        <div id="btn-t6" onclick="mnTab('t6')" style="display:flex;align-items:center;gap:8px;padding:9px 14px;font-size:11px;font-weight:600;color:#3D4543;border-bottom:1px solid #f1f5f9;cursor:pointer;transition:all .15s;">
                                             <span style="font-size:13px;flex-shrink:0;width:18px;">⚖️</span>
-                                            <span><span style="font-size:9px;font-weight:800;color:#C41230;display:block;">Cap. 7</span>Principios</span>
+                                            <span><span style="font-size:9px;font-weight:800;color:#06b6d4;display:block;">Cap. 7</span>Principios</span>
                                         </div>
-                                        <div id="btn-t7" onclick="mnTab('t7')" style="display:flex;align-items:center;gap:8px;padding:9px 14px;font-size:11px;font-weight:600;color:#3D4543;border-bottom:1px solid #fceaea;cursor:pointer;transition:all .15s;">
+                                        <div id="btn-t7" onclick="mnTab('t7')" style="display:flex;align-items:center;gap:8px;padding:9px 14px;font-size:11px;font-weight:600;color:#3D4543;border-bottom:1px solid #f1f5f9;cursor:pointer;transition:all .15s;">
                                             <span style="font-size:13px;flex-shrink:0;width:18px;">✅</span>
-                                            <span><span style="font-size:9px;font-weight:800;color:#C41230;display:block;">Cap. 8</span>Efectividad</span>
+                                            <span><span style="font-size:9px;font-weight:800;color:#06b6d4;display:block;">Cap. 8</span>Efectividad</span>
                                         </div>
-                                        <div id="btn-t8" onclick="mnTab('t8')" style="display:flex;align-items:center;gap:8px;padding:9px 14px;font-size:11px;font-weight:600;color:#3D4543;border-bottom:1px solid #fceaea;cursor:pointer;transition:all .15s;">
+                                        <div id="btn-t8" onclick="mnTab('t8')" style="display:flex;align-items:center;gap:8px;padding:9px 14px;font-size:11px;font-weight:600;color:#3D4543;border-bottom:1px solid #f1f5f9;cursor:pointer;transition:all .15s;">
                                             <span style="font-size:13px;flex-shrink:0;width:18px;">📜</span>
-                                            <span><span style="font-size:9px;font-weight:800;color:#C41230;display:block;">Cap. 9</span>Política SCI</span>
+                                            <span><span style="font-size:9px;font-weight:800;color:#06b6d4;display:block;">Cap. 9</span>Política SCI</span>
                                         </div>
-                                        <div id="btn-t9" onclick="mnTab('t9')" style="display:flex;align-items:center;gap:8px;padding:9px 14px;font-size:11px;font-weight:600;color:#3D4543;border-bottom:1px solid #fceaea;cursor:pointer;transition:all .15s;">
+                                        <div id="btn-t9" onclick="mnTab('t9')" style="display:flex;align-items:center;gap:8px;padding:9px 14px;font-size:11px;font-weight:600;color:#3D4543;border-bottom:1px solid #f1f5f9;cursor:pointer;transition:all .15s;">
                                             <span style="font-size:13px;flex-shrink:0;width:18px;">👥</span>
-                                            <span><span style="font-size:9px;font-weight:800;color:#C41230;display:block;">Cap. 10</span>Funciones</span>
+                                            <span><span style="font-size:9px;font-weight:800;color:#06b6d4;display:block;">Cap. 10</span>Funciones</span>
                                         </div>
-                                        <div id="btn-t10" onclick="mnTab('t10')" style="display:flex;align-items:center;gap:8px;padding:9px 14px;font-size:11px;font-weight:600;color:#3D4543;border-bottom:1px solid #fceaea;cursor:pointer;transition:all .15s;">
+                                        <div id="btn-t10" onclick="mnTab('t10')" style="display:flex;align-items:center;gap:8px;padding:9px 14px;font-size:11px;font-weight:600;color:#3D4543;border-bottom:1px solid #f1f5f9;cursor:pointer;transition:all .15s;">
                                             <span style="font-size:13px;flex-shrink:0;width:18px;">🏛</span>
-                                            <span><span style="font-size:9px;font-weight:800;color:#C41230;display:block;">Cap. 11</span>Comp. COSO</span>
+                                            <span><span style="font-size:9px;font-weight:800;color:#06b6d4;display:block;">Cap. 11</span>Comp. COSO</span>
                                         </div>
-                                        <div id="btn-t11" onclick="mnTab('t11')" style="display:flex;align-items:center;gap:8px;padding:9px 14px;font-size:11px;font-weight:600;color:#3D4543;border-bottom:1px solid #fceaea;cursor:pointer;transition:all .15s;">
+                                        <div id="btn-t11" onclick="mnTab('t11')" style="display:flex;align-items:center;gap:8px;padding:9px 14px;font-size:11px;font-weight:600;color:#3D4543;border-bottom:1px solid #f1f5f9;cursor:pointer;transition:all .15s;">
                                             <span style="font-size:13px;flex-shrink:0;width:18px;">🗂</span>
-                                            <span><span style="font-size:9px;font-weight:800;color:#C41230;display:block;">Anexo</span>Organigrama</span>
+                                            <span><span style="font-size:9px;font-weight:800;color:#06b6d4;display:block;">Anexo</span>Organigrama</span>
                                         </div>
-                                        <div id="btn-t12" onclick="mnTab('t12')" style="display:flex;align-items:center;gap:8px;padding:9px 14px;font-size:11px;font-weight:600;color:#3D4543;border-bottom:1px solid #fceaea;cursor:pointer;transition:all .15s;">
+                                        <div id="btn-t12" onclick="mnTab('t12')" style="display:flex;align-items:center;gap:8px;padding:9px 14px;font-size:11px;font-weight:600;color:#3D4543;border-bottom:1px solid #f1f5f9;cursor:pointer;transition:all .15s;">
                                             <span style="font-size:13px;flex-shrink:0;width:18px;">📎</span>
-                                            <span><span style="font-size:9px;font-weight:800;color:#C41230;display:block;">Anexos</span>Documentos</span>
+                                            <span><span style="font-size:9px;font-weight:800;color:#06b6d4;display:block;">Anexos</span>Documentos</span>
                                         </div>
                                     </div>
 
@@ -5356,17 +5396,17 @@
                                             <div class="mn-card">
                                                 <div class="mn-card-title">📝 2. Introducción</div>
                                                 <div style="font-size:12px;color:#1A2826;line-height:1.7;font-weight:600;margin-bottom:14px;">El Control Interno es un sistema integral que, de manera articulada, funciona como una herramienta esencial de gestión para el Gobierno Corporativo. Este sistema tiene como finalidad apoyar el logro de los objetivos organizacionales, alineados con la estrategia corporativa. A través del Control Interno, la empresa puede evaluar y asegurar la eficiencia y eficacia de sus procesos, promoviendo el uso responsable de los recursos, la mejora continua, la gestión adecuada de los riesgos y el cumplimiento de los lineamientos legales y normativos vigentes.</div>
-                                                <div style="background:#fceaea;border-radius:8px;padding:13px 15px;margin-bottom:14px;">
-                                                    <div style="font-size:11px;font-weight:800;color:#8B0A2A;margin-bottom:8px;">En Naples Prime S.A.S. CI, el SCI se estructura bajo el modelo COSO con 5 componentes esenciales:</div>
+                                                <div style="background:#f1f5f9;border-radius:8px;padding:13px 15px;margin-bottom:14px;">
+                                                    <div style="font-size:11px;font-weight:800;color:#0f172a;margin-bottom:8px;">En Naples Prime S.A.S. CI, el SCI se estructura bajo el modelo COSO con 5 componentes esenciales:</div>
                                                     <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
-                                                        <div style="background:#fff;border-radius:6px;padding:8px 11px;border-left:3px solid #8B0A2A;font-size:11px;font-weight:700;color:#8B0A2A;display:flex;align-items:center;gap:7px;"><span>1️⃣</span>Ambiente de Control</div>
-                                                        <div style="background:#fff;border-radius:6px;padding:8px 11px;border-left:3px solid #8B0A2A;font-size:11px;font-weight:700;color:#8B0A2A;display:flex;align-items:center;gap:7px;"><span>2️⃣</span>Evaluación del Riesgo</div>
-                                                        <div style="background:#fff;border-radius:6px;padding:8px 11px;border-left:3px solid #8B0A2A;font-size:11px;font-weight:700;color:#8B0A2A;display:flex;align-items:center;gap:7px;"><span>3️⃣</span>Actividades de Control</div>
-                                                        <div style="background:#fff;border-radius:6px;padding:8px 11px;border-left:3px solid #8B0A2A;font-size:11px;font-weight:700;color:#8B0A2A;display:flex;align-items:center;gap:7px;"><span>4️⃣</span>Información y Comunicación</div>
-                                                        <div style="background:#fff;border-radius:6px;padding:8px 11px;border-left:3px solid #8B0A2A;font-size:11px;font-weight:700;color:#8B0A2A;display:flex;align-items:center;gap:7px;grid-column:1/-1;"><span>5️⃣</span>Supervisión y Seguimiento del Sistema de Control</div>
+                                                        <div style="background:#fff;border-radius:6px;padding:8px 11px;border-left:3px solid #0f172a;font-size:11px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:7px;"><span>1️⃣</span>Ambiente de Control</div>
+                                                        <div style="background:#fff;border-radius:6px;padding:8px 11px;border-left:3px solid #0f172a;font-size:11px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:7px;"><span>2️⃣</span>Evaluación del Riesgo</div>
+                                                        <div style="background:#fff;border-radius:6px;padding:8px 11px;border-left:3px solid #0f172a;font-size:11px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:7px;"><span>3️⃣</span>Actividades de Control</div>
+                                                        <div style="background:#fff;border-radius:6px;padding:8px 11px;border-left:3px solid #0f172a;font-size:11px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:7px;"><span>4️⃣</span>Información y Comunicación</div>
+                                                        <div style="background:#fff;border-radius:6px;padding:8px 11px;border-left:3px solid #0f172a;font-size:11px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:7px;grid-column:1/-1;"><span>5️⃣</span>Supervisión y Seguimiento del Sistema de Control</div>
                                                     </div>
                                                 </div>
-                                                <div style="font-size:11.5px;color:#4A6260;line-height:1.65;font-weight:600;">El presente manual promueve el compromiso organizacional por parte de todos los colaboradores involucrados en la implementación del Sistema de Control Interno. Su correcta aplicación contribuye a generar <strong style="color:#8B0A2A;">confiabilidad, transparencia y calidad en la información</strong>, elementos clave para todos los usuarios internos y externos que interactúan con la empresa.</div>
+                                                <div style="font-size:11.5px;color:#4A6260;line-height:1.65;font-weight:600;">El presente manual promueve el compromiso organizacional por parte de todos los colaboradores involucrados en la implementación del Sistema de Control Interno. Su correcta aplicación contribuye a generar <strong style="color:#0f172a;">confiabilidad, transparencia y calidad en la información</strong>, elementos clave para todos los usuarios internos y externos que interactúan con la empresa.</div>
                                             </div>
                                         </div>
 
@@ -5375,13 +5415,13 @@
                                             <div class="mn-card">
                                                 <div class="mn-card-title">🏢 3. Generalidades</div>
                                                 <div class="mn-sep"></div>
-                                                <div style="font-size:11px;font-weight:800;color:#8B0A2A;margin-bottom:6px;">3.1 Definición del Control Interno</div>
+                                                <div style="font-size:11px;font-weight:800;color:#0f172a;margin-bottom:6px;">3.1 Definición del Control Interno</div>
                                                 <div style="font-size:11.5px;color:#1A2826;line-height:1.65;font-weight:600;margin-bottom:13px;">El Control Interno es un sistema conformado por procesos, normas, políticas, principios y procedimientos implementados por la administración de la empresa. Su propósito es garantizar información razonable, confiable, transparente y eficiente para el logro de los objetivos organizacionales, en coherencia con la estrategia corporativa y las políticas internas.</div>
                                                 <div class="mn-sep"></div>
-                                                <div style="font-size:11px;font-weight:800;color:#8B0A2A;margin-bottom:6px;">3.2 Importancia en la Empresa</div>
+                                                <div style="font-size:11px;font-weight:800;color:#0f172a;margin-bottom:6px;">3.2 Importancia en la Empresa</div>
                                                 <div style="font-size:11.5px;color:#1A2826;line-height:1.65;font-weight:600;margin-bottom:13px;">El control interno permite establecer medidas preventivas y correctivas que minimicen los diferentes riesgos que puedan comprometer la estabilidad y continuidad del negocio. En la actualidad, los gobiernos corporativos no solo se enfocan en ampliar su participación en el mercado, sino también en asegurar la sostenibilidad de la empresa.</div>
                                                 <div class="mn-sep"></div>
-                                                <div style="font-size:11px;font-weight:800;color:#8B0A2A;margin-bottom:8px;">3.3 Marco Normativo</div>
+                                                <div style="font-size:11px;font-weight:800;color:#0f172a;margin-bottom:8px;">3.3 Marco Normativo</div>
                                                 <div class="mn-norm">
                                                     <div class="mn-norm-dot"></div>
                                                     <div class="mn-norm-body"><strong>Decreto Único Reglamentario 2420 de 2015</strong> — Arts. 1.2.1.2. y 1.2.1.5. y sus decretos modificatorios. Verifica que los actos de los administradores se ajusten a los estatutos sociales y a las decisiones de la Asamblea y Junta Directiva.</div>
@@ -5395,10 +5435,10 @@
                                                     <div class="mn-norm-body"><strong>Guía de Buenas Prácticas de Gobierno Corporativo</strong> — Capítulo VI: control y administración de riesgos. Capítulo VII: sostenibilidad como principio transversal de la gestión empresarial.</div>
                                                 </div>
                                                 <div class="mn-sep"></div>
-                                                <div style="font-size:11px;font-weight:800;color:#8B0A2A;margin-bottom:6px;">3.4 Alcance del Control Interno</div>
+                                                <div style="font-size:11px;font-weight:800;color:#0f172a;margin-bottom:6px;">3.4 Alcance del Control Interno</div>
                                                 <div style="font-size:11.5px;color:#1A2826;line-height:1.65;font-weight:600;margin-bottom:13px;">El control interno abarca la identificación, evaluación, prevención, control y monitoreo de riesgos que puedan afectar los objetivos institucionales en metas estratégicas, operativas, financieras y normativas.</div>
                                                 <div class="mn-sep"></div>
-                                                <div style="font-size:11px;font-weight:800;color:#8B0A2A;margin-bottom:6px;">3.5 Contribución a la Cultura Organizacional</div>
+                                                <div style="font-size:11px;font-weight:800;color:#0f172a;margin-bottom:6px;">3.5 Contribución a la Cultura Organizacional</div>
                                                 <div style="font-size:11.5px;color:#1A2826;line-height:1.65;font-weight:600;">Más allá de ser un mecanismo de control, el sistema fomenta una cultura organizacional orientada a la anticipación, mitigación y gestión efectiva de situaciones adversas. Se consolida como un componente estratégico para garantizar la transparencia, la sostenibilidad y la responsabilidad corporativa.</div>
                                             </div>
                                         </div>
@@ -5411,7 +5451,7 @@
                                                     <div class="mn-obj-lbl">Objetivo General — Naples Prime S.A.S. C.I.</div>
                                                     <div class="mn-obj-txt">Implementar un Sistema de Control Interno que garantice la gestión eficiente y confiable de la información, el estricto cumplimiento de la normativa vigente y la protección de los intereses de la empresa. De igual manera, fortalecer una cultura organizacional orientada a la prevención, la responsabilidad y la transparencia, asegurando la aplicación de estrategias efectivas para la evaluación permanente y la mejora continua de los procesos.</div>
                                                 </div>
-                                                <div style="font-size:11px;font-weight:800;color:#8B0A2A;margin:12px 0 8px;">Objetivos Específicos</div>
+                                                <div style="font-size:11px;font-weight:800;color:#0f172a;margin:12px 0 8px;">Objetivos Específicos</div>
                                                 <div class="mn-obj-esp">
                                                     <div class="mn-obj-num">1</div>
                                                     <div class="mn-obj-body"><strong>Información de calidad:</strong> Proporcionar una herramienta que permita generar información de calidad, confiable y oportuna para todos los usuarios, facilitando la evaluación de riesgos y la implementación de controles y acciones correctivas.</div>
@@ -5439,24 +5479,24 @@
 
                                             <div class="mn-card">
                                                 <div class="mn-card-title">📐 6. Alcance del Sistema de Control Interno</div>
-                                                <div style="background:#fceaea;border-radius:8px;padding:14px 16px;margin-bottom:12px;border-left:4px solid #8B0A2A;">
-                                                    <div style="font-size:12px;color:#1A2826;line-height:1.7;font-weight:600;">El Sistema de Control Interno tiene como alcance proporcionar una herramienta efectiva para la gestión de riesgos, mediante su <strong style="color:#8B0A2A;">identificación, medición, evaluación y control</strong> en cada uno de los procesos de la empresa, contribuyendo así al cumplimiento de los objetivos organizacionales.</div>
+                                                <div style="background:#f1f5f9;border-radius:8px;padding:14px 16px;margin-bottom:12px;border-left:4px solid #0f172a;">
+                                                    <div style="font-size:12px;color:#1A2826;line-height:1.7;font-weight:600;">El Sistema de Control Interno tiene como alcance proporcionar una herramienta efectiva para la gestión de riesgos, mediante su <strong style="color:#0f172a;">identificación, medición, evaluación y control</strong> en cada uno de los procesos de la empresa, contribuyendo así al cumplimiento de los objetivos organizacionales.</div>
                                                 </div>
                                                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:4px;">
-                                                    <div style="background:#fff;border:1px solid #f5c6c6;border-radius:7px;padding:11px 13px;border-left:3px solid #8B0A2A;">
-                                                        <div style="font-size:11px;font-weight:800;color:#8B0A2A;margin-bottom:4px;">Metas estratégicas</div>
+                                                    <div style="background:#fff;border:1px solid #e2e8f0;border-radius:7px;padding:11px 13px;border-left:3px solid #0f172a;">
+                                                        <div style="font-size:11px;font-weight:800;color:#0f172a;margin-bottom:4px;">Metas estratégicas</div>
                                                         <div style="font-size:10.5px;color:#4A6260;font-weight:600;">Alineación con los objetivos corporativos de largo plazo.</div>
                                                     </div>
-                                                    <div style="background:#fff;border:1px solid #f5c6c6;border-radius:7px;padding:11px 13px;border-left:3px solid #C41230;">
-                                                        <div style="font-size:11px;font-weight:800;color:#8B0A2A;margin-bottom:4px;">Metas operativas</div>
+                                                    <div style="background:#fff;border:1px solid #e2e8f0;border-radius:7px;padding:11px 13px;border-left:3px solid #06b6d4;">
+                                                        <div style="font-size:11px;font-weight:800;color:#0f172a;margin-bottom:4px;">Metas operativas</div>
                                                         <div style="font-size:10.5px;color:#4A6260;font-weight:600;">Eficiencia y eficacia en la ejecución de los procesos.</div>
                                                     </div>
-                                                    <div style="background:#fff;border:1px solid #f5c6c6;border-radius:7px;padding:11px 13px;border-left:3px solid #8B0A2A;">
-                                                        <div style="font-size:11px;font-weight:800;color:#8B0A2A;margin-bottom:4px;">Metas financieras</div>
+                                                    <div style="background:#fff;border:1px solid #e2e8f0;border-radius:7px;padding:11px 13px;border-left:3px solid #0f172a;">
+                                                        <div style="font-size:11px;font-weight:800;color:#0f172a;margin-bottom:4px;">Metas financieras</div>
                                                         <div style="font-size:10.5px;color:#4A6260;font-weight:600;">Confiabilidad de la información y control del riesgo financiero.</div>
                                                     </div>
-                                                    <div style="background:#fff;border:1px solid #f5c6c6;border-radius:7px;padding:11px 13px;border-left:3px solid #C41230;">
-                                                        <div style="font-size:11px;font-weight:800;color:#8B0A2A;margin-bottom:4px;">Metas normativas</div>
+                                                    <div style="background:#fff;border:1px solid #e2e8f0;border-radius:7px;padding:11px 13px;border-left:3px solid #06b6d4;">
+                                                        <div style="font-size:11px;font-weight:800;color:#0f172a;margin-bottom:4px;">Metas normativas</div>
                                                         <div style="font-size:10.5px;color:#4A6260;font-weight:600;">Cumplimiento de la legislación vigente y normativas aplicables.</div>
                                                     </div>
                                                 </div>
@@ -5532,20 +5572,20 @@
                                                     <div class="mn-pol-txt">NAPLES PRIME S.A.S. CI incorpora el presente manual con el propósito de establecer los lineamientos para el funcionamiento del Sistema de Control Interno adoptado. Este sistema busca garantizar información confiable y transparente para todos los usuarios, facilitando el cumplimiento de los objetivos y de la estrategia de Gobierno Corporativo. Asimismo, asegura el acatamiento de la normatividad legal vigente en el desarrollo de la actividad y promueve una adecuada gestión de los riesgos.</div>
                                                 </div>
                                                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:4px;">
-                                                    <div style="background:#fceaea;border-radius:7px;padding:11px 13px;border-left:3px solid #8B0A2A;">
-                                                        <div style="font-size:11px;font-weight:800;color:#8B0A2A;margin-bottom:4px;">Información confiable</div>
+                                                    <div style="background:#f1f5f9;border-radius:7px;padding:11px 13px;border-left:3px solid #0f172a;">
+                                                        <div style="font-size:11px;font-weight:800;color:#0f172a;margin-bottom:4px;">Información confiable</div>
                                                         <div style="font-size:10.5px;color:#4A6260;font-weight:600;">Garantizar información transparente y oportuna para todos los usuarios internos y externos.</div>
                                                     </div>
-                                                    <div style="background:#fceaea;border-radius:7px;padding:11px 13px;border-left:3px solid #C41230;">
-                                                        <div style="font-size:11px;font-weight:800;color:#8B0A2A;margin-bottom:4px;">Cumplimiento normativo</div>
+                                                    <div style="background:#f1f5f9;border-radius:7px;padding:11px 13px;border-left:3px solid #06b6d4;">
+                                                        <div style="font-size:11px;font-weight:800;color:#0f172a;margin-bottom:4px;">Cumplimiento normativo</div>
                                                         <div style="font-size:10.5px;color:#4A6260;font-weight:600;">Asegurar el acatamiento de la normatividad legal vigente en el desarrollo de la actividad.</div>
                                                     </div>
-                                                    <div style="background:#fceaea;border-radius:7px;padding:11px 13px;border-left:3px solid #8B0A2A;">
-                                                        <div style="font-size:11px;font-weight:800;color:#8B0A2A;margin-bottom:4px;">Gestión de riesgos</div>
+                                                    <div style="background:#f1f5f9;border-radius:7px;padding:11px 13px;border-left:3px solid #0f172a;">
+                                                        <div style="font-size:11px;font-weight:800;color:#0f172a;margin-bottom:4px;">Gestión de riesgos</div>
                                                         <div style="font-size:10.5px;color:#4A6260;font-weight:600;">Promover una adecuada gestión de los riesgos corporativos que puedan afectar los objetivos estratégicos.</div>
                                                     </div>
-                                                    <div style="background:#fceaea;border-radius:7px;padding:11px 13px;border-left:3px solid #C41230;">
-                                                        <div style="font-size:11px;font-weight:800;color:#8B0A2A;margin-bottom:4px;">Gobierno Corporativo</div>
+                                                    <div style="background:#f1f5f9;border-radius:7px;padding:11px 13px;border-left:3px solid #06b6d4;">
+                                                        <div style="font-size:11px;font-weight:800;color:#0f172a;margin-bottom:4px;">Gobierno Corporativo</div>
                                                         <div style="font-size:10.5px;color:#4A6260;font-weight:600;">Facilitar el cumplimiento de los objetivos y de la estrategia de Gobierno Corporativo.</div>
                                                     </div>
                                                 </div>
@@ -5590,9 +5630,9 @@
                                                         <div class="mn-coso-sub">💎 Valores Corporativos</div>
                                                         <div style="margin-bottom:12px;"><span class="mn-valor">HONESTIDAD</span><span class="mn-valor">COMPROMISO</span><span class="mn-valor">CALIDAD</span><span class="mn-valor">COMPETITIVIDAD</span><span class="mn-valor">RESPONSABILIDAD SOCIAL</span></div>
                                                         <div class="mn-coso-sub">📋 Misión</div>
-                                                        <div style="font-size:11px;color:#4A6260;font-weight:600;line-height:1.6;margin-bottom:11px;background:#fceaea;border-radius:6px;padding:9px 11px;">Somos una comercializadora de materias primas y productos colombianos en el mercado internacional, especializada en detectar y generar negocios sostenibles y de larga duración, contribuyendo al desarrollo social y económico de nuestro país.</div>
+                                                        <div style="font-size:11px;color:#4A6260;font-weight:600;line-height:1.6;margin-bottom:11px;background:#f1f5f9;border-radius:6px;padding:9px 11px;">Somos una comercializadora de materias primas y productos colombianos en el mercado internacional, especializada en detectar y generar negocios sostenibles y de larga duración, contribuyendo al desarrollo social y económico de nuestro país.</div>
                                                         <div class="mn-coso-sub">🔭 Visión</div>
-                                                        <div style="font-size:11px;color:#4A6260;font-weight:600;line-height:1.6;background:#fceaea;border-radius:6px;padding:9px 11px;">Seremos líderes activos en la oferta al mercado de un portafolio altamente diversificado compuesto por productos nacionales e internacionales cuidadosamente seleccionados que compitan en el entorno global por su calidad.</div>
+                                                        <div style="font-size:11px;color:#4A6260;font-weight:600;line-height:1.6;background:#f1f5f9;border-radius:6px;padding:9px 11px;">Seremos líderes activos en la oferta al mercado de un portafolio altamente diversificado compuesto por productos nacionales e internacionales cuidadosamente seleccionados que compitan en el entorno global por su calidad.</div>
                                                     </div>
                                                 </div>
                                                 <div class="mn-coso">
@@ -5698,7 +5738,7 @@
                                                         <div class="mn-org-box light" style="min-width:160px;font-size:10px;">OFICIAL DE CUMPLIMIENTO<br>Helen Castellanos</div>
                                                         <div class="mn-org-line"></div>
                                                     </div>
-                                                    <div style="font-size:9.5px;font-weight:800;color:#8B0A2A;text-align:center;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px;">7 Direcciones — Estructura Departamental</div>
+                                                    <div style="font-size:9.5px;font-weight:800;color:#0f172a;text-align:center;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px;">7 Direcciones — Estructura Departamental</div>
                                                     <div class="mn-org-dirs">
                                                         <div>
                                                             <div class="mn-org-dir">DRC.001<br>Dir. Riesgo y Cumplimiento<br><span style="font-weight:400;opacity:.85;">Helen Castellanos</span></div>
@@ -5785,7 +5825,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="mn-sep"></div>
-                                                <div style="font-size:11px;font-weight:800;color:#8B0A2A;margin-bottom:8px;">Control de Actualizaciones</div>
+                                                <div style="font-size:11px;font-weight:800;color:#0f172a;margin-bottom:8px;">Control de Actualizaciones</div>
                                                 <table class="mn-ver-table" style="margin-bottom:12px;">
                                                     <thead>
                                                         <tr>
@@ -5796,7 +5836,7 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td style="font-weight:800;color:#8B0A2A;">01</td>
+                                                            <td style="font-weight:800;color:#0f172a;">01</td>
                                                             <td>Versión Inicial del Manual del Sistema de Control Interno</td>
                                                             <td>25/09/2025</td>
                                                         </tr>
@@ -5841,10 +5881,10 @@
                 var ab = document.getElementById('btn-' + id);
                 if (ap) ap.style.display = 'block';
                 if (ab) {
-                    ab.style.background = '#fceaea';
-                    ab.style.color = '#8B0A2A';
+                    ab.style.background = '#f1f5f9';
+                    ab.style.color = '#0f172a';
                     ab.style.fontWeight = '800';
-                    ab.style.borderLeft = '3px solid #8B0A2A';
+                    ab.style.borderLeft = '3px solid #0f172a';
                 }
             }
 

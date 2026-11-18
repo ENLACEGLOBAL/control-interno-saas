@@ -1,84 +1,74 @@
 <x-app-layout>
     <x-slot name="header">
-        <x-page-header title="Registrar nuevo usuario" subtitle="Crea credenciales globales y asigna entornos" />
+        <x-page-header title="Nuevo usuario" subtitle="Crea credenciales globales y asigna empresas con su rol" icon="user" />
     </x-slot>
 
-    <div class="py-8">
-        <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-5xl px-4 pb-12 pt-6 sm:px-6 lg:px-8">
+        <form method="POST" action="{{ route('saas.users.store') }}">
+            @csrf
             <x-card>
-                <form method="POST" action="{{ route('saas.users.store') }}" class="space-y-6">
-                    @csrf
+                <div class="space-y-8">
+                    <x-form-errors />
 
-                    <div>
-                        <h3 class="mb-4 flex items-center gap-2 border-b border-slate-100 pb-2 text-sm font-semibold text-slate-700">
-                            <span class="flex h-6 w-6 items-center justify-center rounded-md bg-slate-100 text-slate-500 text-xs">1</span>
-                            Credenciales globales
-                        </h3>
-                        <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                            <div>
-                                <x-input-label value="Nombre completo" />
-                                <x-text-input type="text" name="name" required placeholder="Ej: Juan Pérez" class="w-full text-sm" />
+                    <x-form-section step="1" title="Credenciales" description="Datos de acceso a la plataforma.">
+                        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                            <div class="sm:col-span-2">
+                                <x-input-label for="name" value="Nombre completo" />
+                                <x-text-input id="name" type="text" name="name" :value="old('name')" required autofocus placeholder="Ej: Juan Pérez" />
+                                <x-input-error :messages="$errors->get('name')" />
                             </div>
                             <div>
-                                <x-input-label value="Correo electrónico" />
-                                <x-text-input type="email" name="email" required placeholder="juan@empresa.com" class="w-full text-sm" />
+                                <x-input-label for="email" value="Correo electrónico" />
+                                <x-text-input id="email" type="email" name="email" :value="old('email')" required placeholder="juan@empresa.com" autocomplete="off" />
+                                <x-input-error :messages="$errors->get('email')" />
                             </div>
                             <div>
-                                <x-input-label value="Contraseña temporal" />
-                                <x-text-input type="password" name="password" required placeholder="Mínimo 8 caracteres" class="w-full text-sm" />
+                                <x-input-label for="password" value="Contraseña temporal" />
+                                <x-text-input id="password" type="password" name="password" required minlength="8" placeholder="Mínimo 8 caracteres" autocomplete="new-password" />
+                                <x-input-error :messages="$errors->get('password')" />
                             </div>
                         </div>
-                    </div>
+                    </x-form-section>
 
-                    <div>
-                        <h3 class="mb-4 flex items-center gap-2 border-b border-slate-100 pb-2 text-sm font-semibold text-slate-700">
-                            <span class="flex h-6 w-6 items-center justify-center rounded-md bg-slate-100 text-slate-500 text-xs">2</span>
-                            Entornos autorizados y niveles de acceso
-                        </h3>
-                        <div class="overflow-x-auto rounded-xl border border-slate-200">
-                            <table class="min-w-full divide-y divide-slate-200 text-left text-sm">
-                                <thead class="bg-slate-50 text-xs font-semibold uppercase tracking-wider text-slate-500">
-                                    <tr>
-                                        <th class="w-16 px-6 py-3 text-center">¿Acceso?</th>
-                                        <th class="px-6 py-3">Empresa / tenant</th>
-                                        <th class="px-6 py-3">Rol asignado</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-slate-100 bg-white">
-                                    @forelse($tenants as $t)
-                                    <tr class="transition hover:bg-slate-50">
-                                        <td class="px-6 py-4 text-center">
-                                            <input type="checkbox" name="tenant_ids[]" value="{{ $t->id }}"
-                                                class="h-4 w-4 cursor-pointer rounded border-slate-300 text-slate-900 focus:ring-slate-900/20">
-                                        </td>
-                                        <td class="px-6 py-4 font-semibold text-slate-700">{{ $t->name }}</td>
-                                        <td class="px-6 py-4">
-                                            <x-select name="role_names[{{ $t->id }}]" class="py-1 text-xs">
-                                                <option value="">-- Seleccionar rol --</option>
-                                                @foreach($roles as $r)
-                                                <option value="{{ $r->name }}">{{ strtoupper(str_replace('_', ' ', $r->name)) }}</option>
+                    <hr class="border-slate-100">
+
+                    <x-form-section step="2" title="Empresas y roles" description="Marca las empresas a las que tendrá acceso y el rol en cada una.">
+                        @if ($tenants->isEmpty())
+                            <x-alert type="warning">
+                                Debes registrar al menos una empresa antes de dar de alta usuarios.
+                                <a href="{{ route('saas.tenants.create') }}" class="font-semibold underline">Crear empresa</a>
+                            </x-alert>
+                        @else
+                            <div class="space-y-2">
+                                @foreach ($tenants as $t)
+                                    <div x-data="{ on: {{ in_array($t->id, old('tenant_ids', [])) ? 'true' : 'false' }} }"
+                                         class="flex flex-col gap-3 rounded-xl border p-3 transition sm:flex-row sm:items-center"
+                                         :class="on ? 'border-slate-900 bg-slate-50' : 'border-slate-200'">
+                                        <label class="flex flex-1 cursor-pointer items-center gap-3">
+                                            <input type="checkbox" name="tenant_ids[]" value="{{ $t->id }}" x-model="on"
+                                                   class="h-4 w-4 rounded border-slate-300 text-slate-900 focus:ring-slate-900/20">
+                                            <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-white text-slate-500 ring-1 ring-slate-200"><x-icon name="building" class="h-4 w-4" /></span>
+                                            <span class="text-sm font-semibold text-slate-800">{{ $t->name }}</span>
+                                        </label>
+                                        <div class="sm:w-56">
+                                            <x-select name="role_names[{{ $t->id }}]" x-bind:required="on" x-bind:class="on ? '' : 'opacity-50'" aria-label="Rol en {{ $t->name }}" class="!py-2">
+                                                <option value="">Seleccionar rol…</option>
+                                                @foreach ($roles as $r)
+                                                    <option value="{{ $r->name }}" @selected(old('role_names.'.$t->id) === $r->name)>{{ ucfirst(str_replace('_', ' ', $r->name)) }}</option>
                                                 @endforeach
                                             </x-select>
-                                        </td>
-                                    </tr>
-                                    @empty
-                                    <tr>
-                                        <td colspan="3" class="p-4 text-center text-xs font-medium italic text-red-500">
-                                            Debes registrar al menos una empresa antes de dar de alta usuarios.
-                                        </td>
-                                    </tr>
-                                    @endforelse
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
+                    </x-form-section>
 
-                    <div class="flex justify-end gap-3 border-t border-slate-100 pt-4">
-                        <x-btn :href="route('saas.dashboard')" variant="secondary">Cancelar</x-btn>
-                        <x-btn>Dar de alta y enlazar cuentas</x-btn>
-                    </div>
-                </form>
+                    <x-form-actions :cancel="route('saas.dashboard')">
+                        <x-btn icon="check">Dar de alta usuario</x-btn>
+                    </x-form-actions>
+                </div>
             </x-card>
-        </div>
+        </form>
     </div>
 </x-app-layout>
