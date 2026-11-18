@@ -1,62 +1,63 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">🛡️ Controles Mitigantes</h2>
-            <a href="{{ route('controls.create') }}" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded text-sm">+ Vincular Control</a>
-        </div>
+        <x-page-header title="Controles mitigantes" subtitle="Controles vinculados a los riesgos">
+            <x-slot name="actions">
+                <x-btn :href="route('controls.create')">+ Vincular control</x-btn>
+            </x-slot>
+        </x-page-header>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="py-8">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-4">
             @if (session('status'))
-                <div class="mb-4 p-4 bg-green-100 text-green-700 rounded-lg">{{ session('status') }}</div>
+                <x-alert>{{ session('status') }}</x-alert>
             @endif
 
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
+            <x-card padding="p-0">
                 <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200 text-sm">
-                        <thead class="bg-gray-50">
+                    <table class="min-w-full divide-y divide-slate-200 text-sm">
+                        <thead class="bg-slate-50">
                             <tr>
-                                <th class="px-4 py-3 text-left font-medium text-gray-500 uppercase tracking-wider">Nombre del Control</th>
-                                <th class="px-4 py-3 text-left font-medium text-gray-500 uppercase tracking-wider">Tipo</th>
-                                <th class="px-4 py-3 text-left font-medium text-gray-500 uppercase tracking-wider">Riesgo Asociado</th>
-                                <th class="px-4 py-3 text-center font-medium text-gray-500 uppercase tracking-wider">Puntaje</th>
-                                <th class="px-4 py-3 text-center font-medium text-gray-500 uppercase tracking-wider">Calificación</th>
+                                <th class="px-4 py-3 text-left font-semibold uppercase tracking-wider text-slate-500">Nombre del control</th>
+                                <th class="px-4 py-3 text-left font-semibold uppercase tracking-wider text-slate-500">Tipo</th>
+                                <th class="px-4 py-3 text-left font-semibold uppercase tracking-wider text-slate-500">Riesgo asociado</th>
+                                <th class="px-4 py-3 text-center font-semibold uppercase tracking-wider text-slate-500">Puntaje</th>
+                                <th class="px-4 py-3 text-center font-semibold uppercase tracking-wider text-slate-500">Calificación</th>
                             </tr>
                         </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
+                        <tbody class="divide-y divide-slate-100 bg-white">
                             @forelse($controls as $control)
-                                <tr>
-                                    <td class="px-4 py-4 font-bold text-gray-800">{{ $control->name }}</td>
-                                    <td class="px-4 py-4 whitespace-nowrap text-gray-600">{{ $control->type }}</td>
+                                <tr class="transition hover:bg-slate-50">
+                                    <td class="px-4 py-4 font-semibold text-slate-800">{{ $control->name }}</td>
+                                    <td class="px-4 py-4 text-slate-600">{{ $control->type }}</td>
                                     <td class="px-4 py-4 text-xs">
                                         <span class="font-bold text-red-600">{{ $control->risk->code }}</span>
                                     </td>
-                                    <td class="px-4 py-4 whitespace-nowrap text-center font-bold text-indigo-600">
+                                    <td class="whitespace-nowrap px-4 py-4 text-center font-bold text-slate-900">
                                         {{ $control->total_score }}/100
                                     </td>
-                                    <td class="px-4 py-4 whitespace-nowrap text-center">
+                                    <td class="whitespace-nowrap px-4 py-4 text-center">
                                         @php
                                             $badgeClass = match($control->classification) {
-                                                'Óptimo' => 'bg-green-100 text-green-800',
+                                                'Óptimo' => 'bg-emerald-100 text-emerald-800',
                                                 'Bueno' => 'bg-blue-100 text-blue-800',
                                                 'Débil' => 'bg-orange-100 text-orange-800',
                                                 'Inaceptable' => 'bg-red-100 text-red-800',
-                                                default => 'bg-gray-100 text-gray-800'
+                                                default => 'bg-slate-100 text-slate-800'
                                             };
                                         @endphp
-                                        <span class="px-2 inline-flex text-xs leading-5 font-bold rounded-full {{ $badgeClass }}">
+                                        <span class="inline-flex rounded-full px-2.5 py-1 text-xs font-bold {{ $badgeClass }}">
                                             {{ $control->classification }}
                                         </span>
                                     </td>
                                 </tr>
                             @empty
-                                <tr><td colspan="5" class="px-4 py-4 text-center text-gray-500">No hay controles registrados.</td></tr>
+                                <tr><td colspan="5" class="px-4 py-6 text-center text-slate-500">No hay controles registrados.</td></tr>
                             @endforelse
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </x-card>
         </div>
     </div>
 </x-app-layout>

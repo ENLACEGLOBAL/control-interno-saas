@@ -1,22 +1,23 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">🏢 Crear Nueva Dirección / Área</h2>
+        <x-page-header title="Crear dirección / área" subtitle="Registra una nueva unidad organizacional" />
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                <form method="POST" action="{{ route('areas.store') }}">
+    <div class="py-8">
+        <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+            <x-card>
+                <form method="POST" action="{{ route('areas.store') }}" class="space-y-5">
                     @csrf
                     <div>
-                        <label class="block font-medium text-sm text-gray-700">Nombre de la Dirección / Área</label>
-                        <input type="text" name="name" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="Ej: Dirección Financiero y Contable">
+                        <x-input-label value="Nombre de la dirección / área" />
+                        <x-text-input type="text" name="name" required placeholder="Ej: Dirección Financiera y Contable" class="w-full" />
                     </div>
-                    <div class="flex justify-end mt-4">
-                        <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded text-sm">Guardar Área</button>
+                    <div class="flex justify-end gap-3 border-t border-slate-100 pt-4">
+                        <x-btn :href="route('areas.index')" variant="secondary">Cancelar</x-btn>
+                        <x-btn>Guardar área</x-btn>
                     </div>
                 </form>
-            </div>
+            </x-card>
         </div>
     </div>
 </x-app-layout>

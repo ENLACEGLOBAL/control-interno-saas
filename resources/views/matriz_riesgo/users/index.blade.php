@@ -1,38 +1,38 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">👥 Gestión de Accesos por Área</h2>
+        <x-page-header title="Gestión de accesos por área" subtitle="Asigna áreas a los usuarios de la empresa" />
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="py-8">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-4">
             @if (session('status'))
-                <div class="mb-4 p-4 bg-green-100 text-green-700 rounded-lg">{{ session('status') }}</div>
+                <x-alert>{{ session('status') }}</x-alert>
             @endif
 
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                <table class="min-w-full divide-y divide-gray-200 text-sm">
-                    <thead class="bg-gray-50">
-                        <tr>
-                            <th class="px-6 py-3 text-left font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
-                            <th class="px-6 py-3 text-left font-medium text-gray-500 uppercase tracking-wider">Correo</th>
-                            <th class="px-6 py-3 text-right font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
-                        @foreach($users as $user)
+            <x-card padding="p-0">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-slate-200 text-sm">
+                        <thead class="bg-slate-50">
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap font-bold">{{ $user->name }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-gray-600">{{ $user->email }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right">
-                                    <a href="{{ route('tenant-users.edit', $user->id) }}" class="bg-indigo-50 text-indigo-600 hover:bg-indigo-100 font-bold py-1 px-3 rounded border border-indigo-200">
-                                        Asignar Áreas ⚙️
-                                    </a>
-                                </td>
+                                <th class="px-6 py-3 text-left font-semibold uppercase tracking-wider text-slate-500">Nombre</th>
+                                <th class="px-6 py-3 text-left font-semibold uppercase tracking-wider text-slate-500">Correo</th>
+                                <th class="px-6 py-3 text-right font-semibold uppercase tracking-wider text-slate-500">Acciones</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 bg-white">
+                            @foreach($users as $user)
+                                <tr class="transition hover:bg-slate-50">
+                                    <td class="whitespace-nowrap px-6 py-4 font-semibold text-slate-900">{{ $user->name }}</td>
+                                    <td class="whitespace-nowrap px-6 py-4 text-slate-600">{{ $user->email }}</td>
+                                    <td class="whitespace-nowrap px-6 py-4 text-right">
+                                        <x-btn :href="route('tenant-users.edit', $user->id)" variant="secondary" class="!px-3 !py-1.5 text-xs">Asignar áreas</x-btn>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </x-card>
         </div>
     </div>
 </x-app-layout>

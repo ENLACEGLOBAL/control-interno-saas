@@ -1,41 +1,37 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">🏢 Registrar Nueva Empresa (Tenant)</h2>
+        <x-page-header title="Registrar nueva empresa" subtitle="Crea un nuevo tenant en la plataforma" />
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-<form method="POST" action="{{ route('saas.tenants.store') }}">
+    <div class="py-8">
+        <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
+            <x-card>
+                <form method="POST" action="{{ route('saas.tenants.store') }}" class="space-y-5">
                     @csrf
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                         <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-1">Razón Social de la Empresa</label>
-                            <input type="text" name="name" required class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="Ej: Logística Internacional S.A.">
+                            <x-input-label value="Razón social de la empresa" />
+                            <x-text-input type="text" name="name" required placeholder="Ej: Logística Internacional S.A." class="w-full" />
                         </div>
-
                         <div>
-                            <label class="block text-sm font-bold text-indigo-800 mb-1">Plan / Tipo de Licencia</label>
-                            <select name="license_type" required class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-indigo-50">
-                                <option value="">-- Seleccionar Plan SaaS --</option>
-                                <option value="Basic">Licencia Básica</option>
-                                <option value="Profesional">Licencia Profesional</option>
-                                <option value="Corporativa">Licencia Corporativa</option>
+                            <x-input-label value="Plan / tipo de licencia" />
+                            <x-select name="license_type" required>
+                                <option value="">-- Seleccionar plan SaaS --</option>
+                                <option value="Basic">Licencia básica</option>
+                                <option value="Profesional">Licencia profesional</option>
+                                <option value="Corporativa">Licencia corporativa</option>
                                 <option value="Enterprise">Enterprise</option>
                                 <option value="Premium">Premium</option>
-                            </select>
+                            </x-select>
                         </div>
                     </div>
 
-                    <div class="flex justify-end border-t pt-4">
-                        <a href="{{ route('saas.dashboard') }}" class="text-gray-500 hover:text-gray-700 font-medium text-sm mr-4 flex items-center">Cancelar</a>
-                        <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded shadow-sm transition-colors">
-                            Crear Entorno de Cliente
-                        </button>
+                    <div class="flex justify-end gap-3 border-t border-slate-100 pt-4">
+                        <x-btn :href="route('saas.dashboard')" variant="secondary">Cancelar</x-btn>
+                        <x-btn>Crear entorno de cliente</x-btn>
                     </div>
                 </form>
-            </div>
+            </x-card>
         </div>
     </div>
 </x-app-layout>

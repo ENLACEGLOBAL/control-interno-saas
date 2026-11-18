@@ -1,30 +1,31 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">⚙️ Registrar Nuevo Proceso</h2>
+        <x-page-header title="Registrar nuevo proceso" subtitle="Vincula un proceso a su área dueña" />
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                <form method="POST" action="{{ route('processes.store') }}">
+    <div class="py-8">
+        <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+            <x-card>
+                <form method="POST" action="{{ route('processes.store') }}" class="space-y-5">
                     @csrf
-                    <div class="mb-4">
-                        <label class="block font-medium text-sm text-gray-700">Seleccionar Área Dueña</label>
-                        <select name="area_id" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                    <div>
+                        <x-input-label value="Seleccionar área dueña" />
+                        <select name="area_id" required class="block w-full rounded-lg border-slate-300 text-sm shadow-sm transition focus:border-slate-900 focus:ring-2 focus:ring-slate-900/10">
                             @foreach($areas as $area)
                                 <option value="{{ $area->id }}">{{ $area->name }}</option>
                             @endforeach
                         </select>
                     </div>
-                    <div class="mb-4">
-                        <label class="block font-medium text-sm text-gray-700">Nombre del Proceso Subordinado</label>
-                        <input type="text" name="name" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" placeholder="Ej: Cierres de Negociaciones Comerciales">
+                    <div>
+                        <x-input-label value="Nombre del proceso subordinado" />
+                        <x-text-input type="text" name="name" required placeholder="Ej: Cierre de negociaciones comerciales" class="w-full" />
                     </div>
-                    <div class="flex justify-end">
-                        <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded text-sm">Guardar Proceso</button>
+                    <div class="flex justify-end gap-3 border-t border-slate-100 pt-4">
+                        <x-btn :href="route('processes.index')" variant="secondary">Cancelar</x-btn>
+                        <x-btn>Guardar proceso</x-btn>
                     </div>
                 </form>
-            </div>
+            </x-card>
         </div>
     </div>
 </x-app-layout>

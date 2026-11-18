@@ -1,8 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Módulo: Auditoría Avanzada — SCI NAPLES') }}
-        </h2>
+        <x-page-header title="Auditoría avanzada" subtitle="Sistema de Control Interno — SCI" />
     </x-slot>
     <style>
         /* ── ESTILOS EXCLUSIVOS SECCIÓN MANUAL ── */

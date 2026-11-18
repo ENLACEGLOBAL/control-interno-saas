@@ -1,151 +1,142 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard Principal') }}
-        </h2>
+        <x-page-header title="Panel principal" subtitle="Resumen de tu entorno de control interno" />
     </x-slot>
 
     <div class="py-8">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
             @if(app(\App\Services\TenantContext::class)->hasTenant())
                 @php
                     $tenant = app(\App\Services\TenantContext::class)->getTenant();
                 @endphp
 
-                <div class="bg-gradient-to-r from-slate-800 to-slate-900 rounded-xl p-6 mb-6 text-white shadow-lg border-b-4 border-red-700 relative overflow-hidden">
+                {{-- Banner de entorno activo --}}
+                <div class="relative mb-6 overflow-hidden rounded-2xl bg-slate-900 p-6 text-white shadow-sm">
+                    <div class="pointer-events-none absolute inset-0 opacity-90"
+                         style="background:
+                            radial-gradient(900px 400px at 15% -20%, rgba(56,189,248,.18), transparent 60%),
+                            radial-gradient(700px 400px at 95% 120%, rgba(99,102,241,.20), transparent 60%),
+                            linear-gradient(160deg,#0b1220 0%,#0f172a 60%,#111827 100%);"></div>
                     <div class="relative z-10">
-                        <div class="text-xs font-bold tracking-widest uppercase opacity-75 mb-1">Entorno de Trabajo Activo</div>
-                        <h3 class="text-2xl font-bold mb-1">{{ $tenant->name }}</h3>
-                        <div class="text-sm opacity-90">Plataforma de Control Interno y Gestión de Riesgos</div>
+                        <div class="mb-1 text-xs font-semibold uppercase tracking-widest text-cyan-300/80">Entorno de trabajo activo</div>
+                        <h3 class="text-2xl font-bold">{{ $tenant->name }}</h3>
+                        <div class="mt-1 text-sm text-slate-300">Plataforma de Control Interno y Gestión de Riesgos</div>
                         <div class="mt-4">
-                            <span class="inline-block bg-white/20 border border-white/30 px-3 py-1 rounded text-xs font-bold mr-2 uppercase tracking-wide">
+                            <span class="inline-block rounded-md border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide">
                                 Licencia: {{ $tenant->license_type }}
                             </span>
                         </div>
                     </div>
-                    <div class="absolute right-0 top-0 opacity-10 transform translate-x-1/4 -translate-y-1/4">
-                        <svg class="w-64 h-64" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-                    </div>
                 </div>
+
+                {{-- Notificaciones --}}
                 @if(auth()->user()->unreadNotifications->count() > 0)
-                    <div class="mb-6 p-4 bg-amber-50 border-l-4 border-amber-500 rounded-r-xl shadow-sm">
-                        <h5 class="text-xs font-bold text-amber-800 uppercase tracking-wider mb-2">🔔 Alertas de Asignación Pendientes</h5>
+                    <x-card class="mb-6 border-l-4 border-l-amber-400" padding="p-5">
+                        <h5 class="mb-3 text-xs font-bold uppercase tracking-wider text-amber-700">Alertas de asignación pendientes</h5>
                         <div class="space-y-2">
                             @foreach(auth()->user()->unreadNotifications as $notification)
-                                <div class="flex justify-between items-center text-sm text-amber-900 bg-white/60 p-2 rounded border border-amber-100">
+                                <div class="flex items-center justify-between rounded-lg border border-amber-100 bg-amber-50/60 p-2 text-sm text-amber-900">
                                     <div class="flex items-center gap-2">
                                         <span>{{ $notification->data['icono'] }}</span>
                                         <span>{{ $notification->data['mensaje'] }}</span>
                                     </div>
-                                    <span class="text-[10px] text-gray-400 font-bold">{{ $notification->data['fecha'] }}</span>
+                                    <span class="text-[10px] font-bold text-slate-400">{{ $notification->data['fecha'] }}</span>
                                 </div>
                             @endforeach
                         </div>
-                        <div class="mt-2 text-right">
+                        <div class="mt-3 text-right">
                             <form method="POST" action="{{ route('notifications.read') }}" class="inline">
                                 @csrf
-                                <button type="submit" class="text-xs font-bold text-amber-700 hover:underline">✓ Marcar todas como leídas</button>
+                                <button type="submit" class="text-xs font-semibold text-amber-700 hover:underline">Marcar todas como leídas</button>
                             </form>
                         </div>
-                    </div>
+                    </x-card>
                 @endif
 
-                <h4 class="text-sm font-bold text-gray-600 uppercase tracking-wider mb-3">Módulos del Sistema</h4>
-                <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
-                    <a href="{{ route('areas.index') }}" class="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-all border-l-4 border-slate-700 group">
-                        <div class="text-2xl mb-1 group-hover:scale-110 transition-transform origin-left">🏢</div>
-                        <div class="font-bold text-gray-800 text-sm">Áreas</div>
-                        <div class="text-xs text-gray-500 mt-1">Estructura</div>
-                    </a>
-                    
-                    <a href="{{ route('processes.index') }}" class="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-all border-l-4 border-blue-600 group">
-                        <div class="text-2xl mb-1 group-hover:scale-110 transition-transform origin-left">⚙️</div>
-                        <div class="font-bold text-gray-800 text-sm">Procesos</div>
-                        <div class="text-xs text-gray-500 mt-1">Operaciones</div>
-                    </a>
-
-                    <a href="{{ route('risks.index') }}" class="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-all border-l-4 border-red-600 group">
-                        <div class="text-2xl mb-1 group-hover:scale-110 transition-transform origin-left">⚠</div>
-                        <div class="font-bold text-gray-800 text-sm">Riesgos</div>
-                        <div class="text-xs text-gray-500 mt-1">Eventos</div>
-                    </a>
-
-                    <a href="{{ route('controls.index') }}" class="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-all border-l-4 border-emerald-600 group">
-                        <div class="text-2xl mb-1 group-hover:scale-110 transition-transform origin-left">🛡️</div>
-                        <div class="font-bold text-gray-800 text-sm">Controles</div>
-                        <div class="text-xs text-gray-500 mt-1">Mitigación</div>
-                    </a>
-
-                    <a href="{{ route('matrix.dashboard') }}" class="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-all border-l-4 border-amber-500 group">
-                        <div class="text-2xl mb-1 group-hover:scale-110 transition-transform origin-left">🗺️</div>
-                        <div class="font-bold text-gray-800 text-sm">Matriz</div>
-                        <div class="text-xs text-gray-500 mt-1">Mapas de calor</div>
-                    </a>
-
-                    <a href="{{ route('tenant-users.index') }}" class="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-all border-l-4 border-purple-600 group">
-                        <div class="text-2xl mb-1 group-hover:scale-110 transition-transform origin-left">👥</div>
-                        <div class="font-bold text-gray-800 text-sm">Accesos</div>
-                        <div class="text-xs text-gray-500 mt-1">Usuarios a Áreas</div>
-                    </a>
+                {{-- Módulos --}}
+                <h4 class="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-500">Módulos del sistema</h4>
+                <div class="mb-8 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
+                    @php
+                        $modules = [
+                            ['route' => route('areas.index'),     'label' => 'Áreas',     'desc' => 'Estructura',       'accent' => 'bg-slate-100 text-slate-700',   'icon' => '<path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/>'],
+                            ['route' => route('processes.index'),  'label' => 'Procesos',  'desc' => 'Operaciones',      'accent' => 'bg-blue-100 text-blue-700',     'icon' => '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>'],
+                            ['route' => route('risks.index'),      'label' => 'Riesgos',   'desc' => 'Eventos',          'accent' => 'bg-red-100 text-red-700',       'icon' => '<path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/>'],
+                            ['route' => route('controls.index'),   'label' => 'Controles', 'desc' => 'Mitigación',       'accent' => 'bg-emerald-100 text-emerald-700','icon' => '<path d="M12 3l7 3v5c0 4.5-3 8.2-7 10-4-1.8-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/>'],
+                            ['route' => route('matrix.dashboard'), 'label' => 'Matriz',    'desc' => 'Mapas de calor',   'accent' => 'bg-amber-100 text-amber-700',   'icon' => '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>'],
+                            ['route' => route('tenant-users.index'),'label' => 'Accesos',  'desc' => 'Usuarios a áreas', 'accent' => 'bg-purple-100 text-purple-700', 'icon' => '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>'],
+                        ];
+                    @endphp
+                    @foreach($modules as $m)
+                        <a href="{{ $m['route'] }}" class="group rounded-2xl border border-slate-200 bg-white p-4 transition hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-md">
+                            <span class="mb-3 flex h-10 w-10 items-center justify-center rounded-lg {{ $m['accent'] }}">
+                                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{!! $m['icon'] !!}</svg>
+                            </span>
+                            <div class="text-sm font-semibold text-slate-900">{{ $m['label'] }}</div>
+                            <div class="mt-0.5 text-xs text-slate-500">{{ $m['desc'] }}</div>
+                        </a>
+                    @endforeach
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                    <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm">
-                        <div class="flex items-center gap-2 mb-4 pb-2 border-b border-gray-100">
-                            <span class="text-indigo-600">🔐</span>
-                            <h4 class="font-bold text-gray-800 text-sm uppercase tracking-wide">Tus Roles en esta Empresa</h4>
+                {{-- Roles y permisos --}}
+                <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+                    <x-card>
+                        <div class="mb-4 flex items-center gap-2 border-b border-slate-100 pb-3">
+                            <span class="flex h-7 w-7 items-center justify-center rounded-md bg-slate-100 text-slate-600">
+                                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+                            </span>
+                            <h4 class="text-sm font-semibold uppercase tracking-wide text-slate-700">Tus roles en esta empresa</h4>
                         </div>
                         <ul class="space-y-2">
                             @forelse(auth()->user()->roles as $role)
-                                <li class="flex items-center text-sm text-gray-700">
-                                    <span class="w-2 h-2 bg-indigo-500 rounded-full mr-2"></span>
+                                <li class="flex items-center text-sm text-slate-700">
+                                    <span class="mr-2 h-2 w-2 rounded-full bg-cyan-500"></span>
                                     {{ $role->name }}
                                 </li>
                             @empty
-                                <li class="text-gray-500 italic text-sm bg-gray-50 p-2 rounded">Sin roles asignados.</li>
+                                <li class="rounded-lg bg-slate-50 p-2 text-sm italic text-slate-500">Sin roles asignados.</li>
                             @endforelse
                         </ul>
-                    </div>
+                    </x-card>
 
-                    <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm">
-                        <div class="flex items-center gap-2 mb-4 pb-2 border-b border-gray-100">
-                            <span class="text-emerald-600">✓</span>
-                            <h4 class="font-bold text-gray-800 text-sm uppercase tracking-wide">Permisos Efectivos</h4>
+                    <x-card>
+                        <div class="mb-4 flex items-center gap-2 border-b border-slate-100 pb-3">
+                            <span class="flex h-7 w-7 items-center justify-center rounded-md bg-emerald-100 text-emerald-600">
+                                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+                            </span>
+                            <h4 class="text-sm font-semibold uppercase tracking-wide text-slate-700">Permisos efectivos</h4>
                         </div>
                         <div class="flex flex-wrap gap-2">
                             @forelse(auth()->user()->getAllPermissions() as $permission)
-                                <span class="bg-gray-100 border border-gray-200 text-gray-700 px-2 py-1 rounded text-xs font-medium">
+                                <span class="rounded-md border border-slate-200 bg-slate-50 px-2 py-1 text-xs font-medium text-slate-700">
                                     {{ $permission->name }}
                                 </span>
                             @empty
-                                <span class="text-gray-500 italic text-sm bg-gray-50 p-2 rounded block w-full">Aún no hay permisos asignados.</span>
+                                <span class="block w-full rounded-lg bg-slate-50 p-2 text-sm italic text-slate-500">Aún no hay permisos asignados.</span>
                             @endforelse
                         </div>
-                    </div>
+                    </x-card>
                 </div>
 
             @else
-                <div class="max-w-lg mx-auto bg-white border border-gray-200 rounded-xl p-8 text-center shadow-sm mt-10">
-                    <div class="mx-auto w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-                        <svg class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                        </svg>
+                <x-card class="mx-auto mt-10 max-w-lg text-center" padding="p-8">
+                    <div class="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-slate-100">
+                        <svg class="h-6 w-6 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
                     </div>
-                    <h3 class="text-lg font-bold text-gray-800 mb-1">Ningún contexto activo</h3>
-                    <p class="text-sm text-gray-500 mb-6">Para visualizar los módulos y dashboards, selecciona una empresa desde el menú superior derecho.</p>
-                    <div class="inline-flex items-center justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-gray-50">
-                        👆 Usa el selector de arriba
+                    <h3 class="mb-1 text-lg font-bold text-slate-900">Ningún contexto activo</h3>
+                    <p class="mb-6 text-sm text-slate-500">Para visualizar los módulos y dashboards, selecciona una empresa desde el menú superior derecho.</p>
+                    <div class="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-slate-50 px-4 py-2 text-sm font-medium text-slate-700">
+                        Usa el selector de arriba
                     </div>
-                </div>
+                </x-card>
             @endif
 
-            <div class="mt-8 pt-6 border-t border-gray-200 flex justify-end">
+            <div class="mt-8 flex justify-end border-t border-slate-200 pt-6">
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit" class="inline-flex items-center px-4 py-2 bg-white border border-red-200 rounded-md font-semibold text-xs text-red-600 uppercase tracking-widest hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
-                        Cerrar Sesión
+                    <button type="submit" class="inline-flex items-center gap-2 rounded-lg border border-red-200 bg-white px-4 py-2 text-sm font-semibold text-red-600 transition hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                        Cerrar sesión
                     </button>
                 </form>
             </div>

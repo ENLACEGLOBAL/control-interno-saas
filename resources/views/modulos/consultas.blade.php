@@ -1,21 +1,17 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Módulo: Consultas Básicas') }}
-        </h2>
+        <x-page-header title="Consultas básicas" subtitle="Reportes y consultas generales del sistema" />
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
-                        <strong class="font-bold">¡Acceso Permitido!</strong>
-                        <span class="block sm:inline"> Este módulo es público para todos los tipos de licencia (Basic, Premium, Enterprise).</span>
-                    </div>
-                    <p class="text-sm text-gray-600">Aquí se mostrarían reportes generales, listas de asistencia o consultas básicas del sistema.</p>
-                </div>
-            </div>
+    <div class="py-8">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-4">
+            <x-alert type="success">
+                <strong>Acceso permitido.</strong> Este módulo está disponible para todos los tipos de licencia (Basic, Premium, Enterprise).
+            </x-alert>
+
+            <x-card>
+                <p class="text-sm text-slate-600">Aquí se mostrarían reportes generales, listas de asistencia o consultas básicas del sistema.</p>
+            </x-card>
         </div>
     </div>
 </x-app-layout>

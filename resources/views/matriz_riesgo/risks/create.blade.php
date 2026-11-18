@@ -1,91 +1,94 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">⚠ Registrar Riesgo de Control Interno</h2>
+        <x-page-header title="Registrar riesgo de control interno" subtitle="Evaluación de probabilidad e impacto inherente" />
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                <form method="POST" action="{{ route('risks.store') }}">
+    <div class="py-8">
+        <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+            <x-card>
+                <form method="POST" action="{{ route('risks.store') }}" class="space-y-5">
                     @csrf
-                    <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                         <div>
-                            <label class="block font-medium text-sm text-gray-700">Área Organizacional</label>
-                            <select name="area_id" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                            <x-input-label value="Área organizacional" />
+                            <x-select name="area_id" required>
                                 @foreach($areas as $area)
                                     <option value="{{ $area->id }}">{{ $area->name }}</option>
                                 @endforeach
-                            </select>
+                            </x-select>
                         </div>
                         <div>
-                            <label class="block font-medium text-sm text-gray-700">Proceso Específico</label>
-                            <select name="process_id" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                            <x-input-label value="Proceso específico" />
+                            <x-select name="process_id" required>
                                 @foreach($processes as $proc)
                                     <option value="{{ $proc->id }}">{{ $proc->name }}</option>
                                 @endforeach
-                            </select>
+                            </x-select>
                         </div>
                     </div>
 
-                    <div class="mb-4">
-                        <label class="block font-medium text-sm text-gray-700">Código Técnico del Riesgo</label>
-                        <input type="text" name="code" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" placeholder="Ej: RSCI-35">
+                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                        <div>
+                            <x-input-label value="Código técnico del riesgo" />
+                            <x-text-input type="text" name="code" required placeholder="Ej: RSCI-35" class="w-full" />
+                        </div>
+                        <div>
+                            <x-input-label value="Clasificación / categoría" />
+                            <x-select name="category" required>
+                                <option value="Estratégico">Estratégico</option>
+                                <option value="Operacional">Operacional</option>
+                                <option value="Financiero">Financiero</option>
+                                <option value="Cumplimiento">Cumplimiento / Legal</option>
+                                <option value="Tecnológico">Tecnológico / Seguridad</option>
+                            </x-select>
+                        </div>
                     </div>
+
                     <div>
-                        <label class="block font-medium text-sm text-gray-700">Clasificación / Categoría</label>
-                        <select name="category" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
-                            <option value="Estratégico">Estratégico</option>
-                            <option value="Operacional">Operacional</option>
-                            <option value="Financiero">Financiero</option>
-                            <option value="Cumplimiento">Cumplimiento / Legal</option>
-                            <option value="Tecnológico">Tecnológico / Seguridad</option>
-                        </select>
+                        <x-input-label value="Descripción del suceso de riesgo" />
+                        <textarea name="description" required rows="3" placeholder="Detalle qué puede salir mal..." class="block w-full rounded-lg border-slate-300 text-sm text-slate-900 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:ring-2 focus:ring-slate-900/10"></textarea>
                     </div>
 
-                    <div class="mb-4">
-                        <label class="block font-medium text-sm text-gray-700">Descripción del Suceso de Riesgo</label>
-                        <textarea name="description" required rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" placeholder="Detalle qué puede salir mal..."></textarea>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                         <div>
-                            <label class="block font-medium text-sm text-gray-700">Causas Raíz</label>
-                            <textarea name="cause" rows="2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"></textarea>
+                            <x-input-label value="Causas raíz" />
+                            <textarea name="cause" rows="2" class="block w-full rounded-lg border-slate-300 text-sm text-slate-900 shadow-sm transition focus:border-slate-900 focus:ring-2 focus:ring-slate-900/10"></textarea>
                         </div>
                         <div>
-                            <label class="block font-medium text-sm text-gray-700">Consecuencias / Impacto</label>
-                            <textarea name="consequence" rows="2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"></textarea>
+                            <x-input-label value="Consecuencias / impacto" />
+                            <textarea name="consequence" rows="2" class="block w-full rounded-lg border-slate-300 text-sm text-slate-900 shadow-sm transition focus:border-slate-900 focus:ring-2 focus:ring-slate-900/10"></textarea>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                         <div>
-                            <label class="block font-medium text-sm text-gray-700">Probabilidad Inherente (1-5)</label>
-                            <select name="probability" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                            <x-input-label value="Probabilidad inherente (1-5)" />
+                            <x-select name="probability" required>
                                 <option value="1">1 - Improbable</option>
-                                <option value="2">2 - Rara Vez</option>
+                                <option value="2">2 - Rara vez</option>
                                 <option value="3">3 - Posible</option>
                                 <option value="4">4 - Probable</option>
-                                <option value="5">5 - Casi Cierto</option>
-                            </select>
+                                <option value="5">5 - Casi cierto</option>
+                            </x-select>
                         </div>
                         <div>
-                            <label class="block font-medium text-sm text-gray-700">Impacto Inherente (1-5)</label>
-                            <select name="impact" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                            <x-input-label value="Impacto inherente (1-5)" />
+                            <x-select name="impact" required>
                                 <option value="1">1 - Insignificante</option>
                                 <option value="2">2 - Menor</option>
                                 <option value="3">3 - Moderado</option>
                                 <option value="4">4 - Mayor</option>
                                 <option value="5">5 - Catastrófico</option>
-                            </select>
+                            </x-select>
                         </div>
                     </div>
 
-                    <div class="flex justify-end">
-                        <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded text-sm">Registrar Riesgo</button>
+                    <div class="flex justify-end gap-3 border-t border-slate-100 pt-4">
+                        <x-btn :href="route('risks.index')" variant="secondary">Cancelar</x-btn>
+                        <x-btn>Registrar riesgo</x-btn>
                     </div>
                 </form>
-            </div>
+            </x-card>
         </div>
     </div>
 </x-app-layout>

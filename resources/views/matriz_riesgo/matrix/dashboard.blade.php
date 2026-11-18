@@ -84,7 +84,7 @@
     </style>
 
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">🗺️ Panel Avanzado de Control de Riesgos (COSO)</h2>
+        <x-page-header title="Panel de control de riesgos" subtitle="Mapas de calor COSO" />
     </x-slot>
 
     <div class="py-8" x-data="{ modalAbierto: null }">
