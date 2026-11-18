@@ -11,7 +11,9 @@ use App\Http\Controllers\ControlController;
 use App\Http\Controllers\MatrixDashboardController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return auth()->check()
+        ? redirect()->route('dashboard')
+        : redirect()->route('login');
 });
 
 Route::get('/dashboard', function () {
